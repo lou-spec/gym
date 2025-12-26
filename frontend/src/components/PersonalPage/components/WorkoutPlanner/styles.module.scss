@@ -1891,16 +1891,19 @@
 .cell {
   height: 22px;
   cursor: pointer;
-  transition: background 0.1s;
+  transition: all 0.15s ease;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
 
-  &:hover:not(.cellDisabled) {
-    background: rgba(220, 38, 38, 0.15);
+  &:hover:not(.cellDisabled):not(.cellPast):not(.cellBlocked) {
+    background: rgba(220, 38, 38, 0.25) !important;
+    border-color: #dc2626 !important;
   }
 
   &.cellOccupied {
-    background: #dc2626;
+    background: #dc2626 !important;
+    border-color: #dc2626 !important;
 
-    // Ensure visibility even if disabled/past/blocked
     &.cellDisabled,
     &.cellPast,
     &.cellBlocked {
@@ -1911,20 +1914,48 @@
   }
 
   &.cellPending {
-    background: rgba(220, 38, 38, 0.3);
+    background: rgba(220, 38, 38, 0.5) !important;
+    border: 2px solid #dc2626 !important;
+    animation: pulsePending 1s infinite;
   }
 
   &.cellInRange {
-    background: rgba(220, 38, 38, 0.15);
+    background: rgba(220, 38, 38, 0.3) !important;
+    border-color: #dc2626 !important;
 
     &:hover {
-      background: rgba(220, 38, 38, 0.3);
+      background: rgba(220, 38, 38, 0.45) !important;
     }
   }
 
   &.cellDisabled {
     background: var(--bg-secondary);
     cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &.cellPast {
+    background: var(--bg-secondary);
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &.cellBlocked {
+    background: var(--bg-secondary);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulsePending {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.5);
+  }
+
+  50% {
+    box-shadow: 0 0 0 4px rgba(220, 38, 38, 0);
   }
 }
 

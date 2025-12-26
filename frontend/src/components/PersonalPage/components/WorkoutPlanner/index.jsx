@@ -1001,9 +1001,9 @@ export const WorkoutPlanner = () => {
           </div>
 
 
-          {selectedDayToView && (
+          {Object.keys(sessions).length > 0 && (
             <div className={styles.exerciseSlots}>
-              {[selectedDayToView].map(dayName => {
+              {Object.keys(sessions).map(dayName => {
 
                 const dayInfo = next7Days.find(d => d.englishDayName === dayName);
                 const session = sessions[dayName];

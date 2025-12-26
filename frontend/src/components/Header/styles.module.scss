@@ -42,7 +42,7 @@
 .nav {
   display: flex;
   gap: 20px;
-  /* Centralizar navigation se desejado, ou deixar próximo ao logo */
+ 
 }
 
 .navLink {
@@ -241,5 +241,109 @@
 
   .profileRole {
     color: #ef4444;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+    height: 64px;
+
+    &.scrolled {
+      height: 56px;
+    }
+  }
+
+  .logoText {
+    font-size: 20px;
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .rightSection {
+    gap: 12px;
+  }
+
+  .profileInfo {
+    display: none;
+  }
+
+  .profileContainer {
+    gap: 0;
+  }
+
+  .profileImage,
+  .profileAvatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .themeToggle {
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+  }
+
+  .loginBtn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 12px;
+    height: 56px;
+
+    &.scrolled {
+      height: 50px;
+    }
+  }
+
+  .logoContainer {
+    gap: 6px;
+  }
+
+  .logoText {
+    font-size: 18px;
+  }
+
+  .logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .rightSection {
+    gap: 8px;
+  }
+
+  .profileImage,
+  .profileAvatar {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .themeToggle {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .loginBtn {
+    padding: 6px 12px;
+    font-size: 12px;
   }
 }
