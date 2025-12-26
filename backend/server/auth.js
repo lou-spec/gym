@@ -156,11 +156,12 @@ function AuthRouter() {
         return Users.createToken(user);
       })
       .then((response) => {
+        const isProduction = process.env.NODE_ENV === 'production';
         const cookieOptions = {
-          httpOnly: false,
-          secure: false, // Em production deve ser true com HTTPS
-          sameSite: "lax",
-          path: "/",
+          httpOnly: true,
+          secure: isProduction,
+          sameSite: isProduction ? 'none' : 'lax',
+          path: '/',
         };
 
         if (rememberMe) {

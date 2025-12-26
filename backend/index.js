@@ -77,9 +77,8 @@ const server = http.Server(app);
 // Allowed origins for CORS in both HTTP and Socket.IO
 const customFrontendUrl = process.env.FRONTEND_URL || "";
 const allowedOrigins = [
-  customFrontendUrl,
+  customFrontendUrl || "https://pw-class.vercel.app",
   "http://localhost:5173",
-  "https://la-eta1-app.vercel.app",
 ].filter(Boolean);
 
 const io = socketIo(server, {
@@ -91,7 +90,11 @@ const io = socketIo(server, {
 
 
 // HTTP CORS with allowlist. Accept requests without origin (e.g., curl).
-const isAllowedOrigin = (origin) => origin && allowedOrigins.includes(origin);
+const normalizeOrigin = (origin) => (origin || "").replace(/\/$/, "");
+const isAllowedOrigin = (origin) => {
+  const o = normalizeOrigin(origin);
+  return o && allowedOrigins.map(normalizeOrigin).includes(o);
+};
 const corsOptions = {
   origin(origin, callback) {
     if (!origin || isAllowedOrigin(origin)) {
