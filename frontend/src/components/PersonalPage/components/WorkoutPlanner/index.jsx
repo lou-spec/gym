@@ -1061,7 +1061,7 @@ export const WorkoutPlanner = () => {
 
                               if (session._id) {
                                 try {
-                                  const response = await fetch(`/api/workouts/sessions/${session._id}`, {
+                                  const response = await fetch(buildApiUrl(`/api/workouts/sessions/${session._id}`), {
                                     method: 'DELETE',
                                     credentials: 'include'
                                   });
