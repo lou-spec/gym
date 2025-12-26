@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import titleImage from "../../logo.png";
 import { useTheme } from "../../contexts/ThemeProvider/ThemeProvider";
 import { showSwalSuccess } from "../../utils/swalTheme";
+import { buildApiUrl } from "../../utils/api";
 
 const Header = () => {
   const { isDarkMode, toggleTheme } = useTheme();
@@ -56,7 +57,7 @@ const Header = () => {
     const fetchUserData = async () => {
       if (isAuthenticated) {
         try {
-          const response = await fetch('/api/users/perfil', {
+          const response = await fetch(buildApiUrl('/api/users/perfil'), {
             credentials: 'include',
           });
           if (response.ok) {

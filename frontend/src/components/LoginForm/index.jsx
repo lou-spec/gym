@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { buildApiUrl } from "../../utils/api";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 import styles from "../LoginPage/styles.module.scss";
@@ -18,7 +19,7 @@ const LoginForm = ({ title, role, data }) => {
 
   const login = (formData) => {
     setLoginError("");
-    fetch("/api/auth/login", {
+    fetch(buildApiUrl("/api/auth/login"), {
       headers: { "Content-Type": "application/json" },
       method: "POST",
       credentials: "include",

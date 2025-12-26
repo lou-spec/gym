@@ -4,6 +4,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import ChatNotifications from '../ChatNotifications';
 import { initSocket } from '../../socket/socket';
+import { buildApiUrl } from "../../utils/api";
 
 const Layout = () => {
     const [userId, setUserId] = useState(null);
@@ -14,7 +15,7 @@ const Layout = () => {
         const checkAuth = async () => {
             try {
                 let data = null;
-                let res = await fetch('/api/users/perfil', {
+                let res = await fetch(buildApiUrl('/api/users/perfil'), {
                     credentials: 'include',
                     headers: { Accept: 'application/json' }
                 });
@@ -22,7 +23,7 @@ const Layout = () => {
                     data = await res.json();
                 }
                 if (!data?.user?._id) {
-                    res = await fetch('/api/trainers/perfil', {
+                    res = await fetch(buildApiUrl('/api/trainers/perfil'), {
                         credentials: 'include',
                         headers: { Accept: 'application/json' }
                     });

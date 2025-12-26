@@ -3,6 +3,7 @@ import { Container, Row, Col, Modal, ModalHeader, ModalBody, ModalFooter } from 
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { CheckCircle, XCircle, AlertTriangle, Calendar, Clock, Dumbbell, Play, Eye, Edit3, Camera } from "lucide-react";
+import { buildApiUrl } from "../../../../utils/api";
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const DAY_LABELS = {
@@ -53,7 +54,7 @@ export const WorkoutView = () => {
   const loadWorkoutPlan = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('/api/workouts/plans/my-plan', {
+      const response = await fetch(buildApiUrl('/api/workouts/plans/my-plan'), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -84,7 +85,7 @@ export const WorkoutView = () => {
 
     try {
       const response = await fetch(
-        `/api/workouts/completions/client/${workoutPlan.client}?startDate=${currentWeekStart.toISOString()}&endDate=${weekEnd.toISOString()}`,
+        buildApiUrl(`/api/workouts/completions/client/${workoutPlan.client}?startDate=${currentWeekStart.toISOString()}&endDate=${weekEnd.toISOString()}`),
         {
           credentials: 'include',
           headers: { Accept: 'application/json' }
@@ -182,7 +183,7 @@ export const WorkoutView = () => {
         formData.append('proofImage', proofFile);
       }
 
-      const response = await fetch('/api/workouts/completions', {
+      const response = await fetch(buildApiUrl('/api/workouts/completions'), {
         method: 'POST',
         credentials: 'include',
         body: formData

@@ -8,6 +8,7 @@ import { useGetPerfil } from "../../../../hooks/useGetPerfil";
 import { Save } from "lucide-react";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Swal from 'sweetalert2';
+import { buildApiUrl } from "../../../utils/api";
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const DAY_LABELS = {
@@ -364,7 +365,7 @@ export const WorkoutPlanner = () => {
 
   const loadClients = async () => {
     try {
-      const response = await fetch('/api/users/all-users?limit=100', {
+      const response = await fetch(buildApiUrl('/api/users/all-users?limit=100'), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -389,7 +390,7 @@ export const WorkoutPlanner = () => {
     setIsLoading(true);
     try {
 
-      const plansResponse = await fetch('/api/workouts/plans/trainer', {
+      const plansResponse = await fetch(buildApiUrl('/api/workouts/plans/trainer'), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -402,7 +403,7 @@ export const WorkoutPlanner = () => {
         setPlanName(plan.name || plan.goal || '');
 
 
-        const sessionsResponse = await fetch(`/api/workouts/sessions/${plan._id}`, {
+        const sessionsResponse = await fetch(buildApiUrl(`/api/workouts/sessions/${plan._id}`), {
           credentials: 'include',
           headers: { Accept: 'application/json' }
         });
@@ -431,7 +432,7 @@ export const WorkoutPlanner = () => {
       }
 
 
-      const historyRes = await fetch(`/api/workouts/plans/history/${clientId}`, {
+      const historyRes = await fetch(buildApiUrl(`/api/workouts/plans/history/${clientId}`), {
         credentials: 'include'
       });
       const historyData = await historyRes.json();
@@ -470,7 +471,7 @@ export const WorkoutPlanner = () => {
     }
 
     try {
-      const response = await fetch('/api/workouts/plans', {
+      const response = await fetch(buildApiUrl('/api/workouts/plans'), {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -567,7 +568,7 @@ export const WorkoutPlanner = () => {
     }
 
     try {
-      const response = await fetch('/api/workouts/sessions', {
+      const response = await fetch(buildApiUrl('/api/workouts/sessions'), {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -600,7 +601,7 @@ export const WorkoutPlanner = () => {
     if (!window.confirm('Deseja apagar este treino?')) return;
 
     try {
-      const response = await fetch(`/api/workouts/sessions/${session._id}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/sessions/${session._id}`), {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -622,7 +623,7 @@ export const WorkoutPlanner = () => {
     if (workoutPlan.weeklyFrequency === newFreq) return;
 
     try {
-      const response = await fetch(`/api/workouts/plans/${workoutPlan._id}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/plans/${workoutPlan._id}`), {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -643,7 +644,7 @@ export const WorkoutPlanner = () => {
     if (planName === (workoutPlan.name || workoutPlan.goal)) return;
 
     try {
-      const response = await fetch(`/api/workouts/plans/${workoutPlan._id}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/plans/${workoutPlan._id}`), {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -684,7 +685,7 @@ export const WorkoutPlanner = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const response = await fetch(`/api/workouts/plans/${workoutPlan._id}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/plans/${workoutPlan._id}`), {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -737,7 +738,7 @@ export const WorkoutPlanner = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await fetch(`/api/workouts/plans/${planId}`, {
+      const res = await fetch(buildApiUrl(`/api/workouts/plans/${planId}`), {
         method: 'DELETE',
         credentials: 'include'
       });
@@ -793,7 +794,7 @@ export const WorkoutPlanner = () => {
 
     try {
       if (workoutPlan) {
-        await fetch(`/api/workouts/plans/${workoutPlan._id}`, {
+        await fetch(buildApiUrl(`/api/workouts/plans/${workoutPlan._id}`), {
           method: 'PUT',
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
@@ -801,7 +802,7 @@ export const WorkoutPlanner = () => {
         });
       }
 
-      const response = await fetch(`/api/workouts/plans/${plan._id}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/plans/${plan._id}`), {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
@@ -1372,7 +1373,7 @@ export const WorkoutPlanner = () => {
                                   let currentPlanId = workoutPlan?._id;
 
                                   if (!currentPlanId) {
-                                    const planResponse = await fetch('/api/workouts/plans', {
+                                    const planResponse = await fetch(buildApiUrl('/api/workouts/plans'), {
                                       method: 'POST',
                                       credentials: 'include',
                                       headers: { 'Content-Type': 'application/json' },
@@ -1395,7 +1396,7 @@ export const WorkoutPlanner = () => {
                                     }
                                   }
 
-                                  const response = await fetch('/api/workouts/sessions', {
+                                  const response = await fetch(buildApiUrl('/api/workouts/sessions'), {
                                     method: 'POST',
                                     credentials: 'include',
                                     headers: { 'Content-Type': 'application/json' },

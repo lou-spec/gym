@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { buildApiUrl } from "../../utils/api";
 import { useForm } from "react-hook-form";
 import { Navigate } from "react-router-dom";
 import styles from "../LoginPage/styles.module.scss";
@@ -99,9 +100,10 @@ const RegisterForm = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch("/api/auth/register", {
+            const response = await fetch(buildApiUrl("/api/auth/register"), {
                 headers: { "Content-Type": "application/json" },
                 method: "POST",
+                credentials: "include",
                 body: JSON.stringify(sanitizedData),
             });
 

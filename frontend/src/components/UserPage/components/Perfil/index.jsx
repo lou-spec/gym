@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { Save, Edit, X, Camera, Trash2, Eye, EyeOff, Link, UserCheck, UserX, AlertCircle } from "lucide-react";
 import Qrcode from "../../../QrcodeCreate";
+import { buildApiUrl } from "../../../utils/api";
 
 export const Perfil = ({ user = { name: "" }, onUpdate }) => {
     const { register, handleSubmit, reset, formState: { isDirty } } = useForm({
@@ -46,7 +47,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
         if (trainerId) {
             try {
-                const response = await fetch(`/api/users/details/${trainerId}`, {
+                const response = await fetch(buildApiUrl(`/api/users/details/${trainerId}`), {
                     credentials: 'include'
                 });
                 if (response.ok) {
@@ -72,7 +73,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
     const checkDisassociationStatus = async () => {
         if (!user?.trainer) return;
         try {
-            const response = await fetch('/api/users/disassociation-request/status', {
+            const response = await fetch(buildApiUrl('/api/users/disassociation-request/status'), {
                 credentials: 'include'
             });
             if (response.ok) {
@@ -92,7 +93,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
         setIsAssociating(true);
         setAssociateError('');
         try {
-            const response = await fetch('/api/users/associate-trainer', {
+            const response = await fetch(buildApiUrl('/api/users/associate-trainer'), {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -122,7 +123,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
         setIsSubmittingRequest(true);
         try {
-            const response = await fetch('/api/users/disassociation-request', {
+            const response = await fetch(buildApiUrl('/api/users/disassociation-request'), {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -248,7 +249,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`/api/users/perfil`, {
+            const response = await fetch(buildApiUrl(`/api/users/perfil`), {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -333,7 +334,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
         formData.append('profileImage', selectedImage);
 
         try {
-            const response = await fetch('/api/users/perfil/upload-photo', {
+            const response = await fetch(buildApiUrl('/api/users/perfil/upload-photo'), {
                 method: 'POST',
                 credentials: 'include',
                 body: formData,
@@ -376,7 +377,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
     const handleDeletePhoto = async () => {
         try {
-            const response = await fetch('/api/users/perfil/delete-photo', {
+            const response = await fetch(buildApiUrl('/api/users/perfil/delete-photo'), {
                 method: 'DELETE',
                 credentials: 'include',
             });
@@ -458,7 +459,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
         setIsChangingPassword(true);
         try {
-            const response = await fetch('/api/users/perfil/change-password', {
+            const response = await fetch(buildApiUrl('/api/users/perfil/change-password'), {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {

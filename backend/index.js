@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const http = require("http");
 const mongoose = require("mongoose");
@@ -9,12 +10,16 @@ const cookieParser = require("cookie-parser");
 const router = require("./router");
 const Users = require("./data/users");
 
-const hostname = "127.0.0.1";
-const port = 3000;
+// Detect Render and use its assigned PORT. Bind to 0.0.0.0 on Render.
+const isRender = "RENDER" in process.env;
+const hostname = isRender ? "0.0.0.0" : "127.0.0.1";
+const port = process.env.PORT || 3000;
 
 mongoose.set("strictQuery", true);
+const mongoUrl =
+  process.env.MONGO_URL || process.env.MONGODB_URI || config.db;
 mongoose
-  .connect(config.db)
+  .connect(mongoUrl)
   .then(async () => {
     console.log("Connection successful!");
 
@@ -69,21 +74,36 @@ mongoose
 const app = express();
 const server = http.Server(app);
 
+// Allowed origins for CORS in both HTTP and Socket.IO
+const customFrontendUrl = process.env.FRONTEND_URL || "";
+const allowedOrigins = [
+  customFrontendUrl,
+  "http://localhost:5173",
+  "https://la-eta1-app.vercel.app",
+].filter(Boolean);
 
 const io = socketIo(server, {
   cors: {
-    origin: "http://*:*",
+    origin: allowedOrigins,
+    credentials: true,
   },
 });
 
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-app.options("*", cors());
+// HTTP CORS with allowlist. Accept requests without origin (e.g., curl).
+const isAllowedOrigin = (origin) => origin && allowedOrigins.includes(origin);
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || isAllowedOrigin(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true,
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 app.use(express.json({ limit: "100mb" }));
 app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));

@@ -8,6 +8,7 @@ import { UsersContext } from "../../../../contexts/UsersProvider";
 import { toast } from "react-toastify";
 import { showSwalConfirm, showSwalSuccess, showSwalError } from "../../../../utils/swalTheme";
 import { Edit, Trash2, ArrowUp, ArrowDown, User, Dumbbell, ChevronLeft, ChevronRight } from "lucide-react";
+import { buildApiUrl } from "../../../../utils/api";
 
 const Users = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -77,7 +78,7 @@ const Users = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/users/${user._id}`, {
+        const response = await fetch(buildApiUrl(`/api/users/${user._id}`), {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -116,7 +117,7 @@ const Users = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`/api/users/${user._id}`, {
+        const response = await fetch(buildApiUrl(`/api/users/${user._id}`), {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -152,7 +153,7 @@ const Users = () => {
 
   const handleUpdate = async (formData) => {
     try {
-      const response = await fetch(`/api/users/${editingUser._id}`, {
+      const response = await fetch(buildApiUrl(`/api/users/${editingUser._id}`), {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -187,7 +188,7 @@ const Users = () => {
     }
 
     try {
-      const response = await fetch(`/api/users/${user._id}`, {
+      const response = await fetch(buildApiUrl(`/api/users/${user._id}`), {
         method: "DELETE",
         credentials: "include",
       });

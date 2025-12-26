@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { buildApiUrl } from "../../../utils/api";
 
 export const useGetData = (url = "", pageSize = 10, current = 1, sort = "", order = "", filters = {}) => {
   const [isError, setError] = useState(false);
@@ -38,7 +39,7 @@ export const useGetData = (url = "", pageSize = 10, current = 1, sort = "", orde
     setLoading(true);
     setError(false);
 
-    fetch(query, {
+    fetch(buildApiUrl(query), {
       headers: { Accept: "application/json" },
       credentials: "include",
     })

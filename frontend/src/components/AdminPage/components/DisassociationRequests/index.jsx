@@ -3,6 +3,7 @@ import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { showSwalConfirm, showSwalSuccess } from "../../../../utils/swalTheme";
 import { CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import { buildApiUrl } from "../../../../utils/api";
 
 const DisassociationRequests = () => {
     const [requests, setRequests] = useState([]);
@@ -10,7 +11,7 @@ const DisassociationRequests = () => {
 
     const loadRequests = async () => {
         try {
-            const response = await fetch("/api/users/disassociation-requests/pending", {
+            const response = await fetch(buildApiUrl("/api/users/disassociation-requests/pending"), {
                 credentials: "include",
             });
             if (response.ok) {
@@ -45,7 +46,7 @@ const DisassociationRequests = () => {
 
         if (result.isConfirmed) {
             try {
-                const response = await fetch(`/api/users/disassociation-requests/${request._id}/${action}`, {
+                const response = await fetch(buildApiUrl(`/api/users/disassociation-requests/${request._id}/${action}`), {
                     method: "POST",
                     credentials: "include"
                 });
