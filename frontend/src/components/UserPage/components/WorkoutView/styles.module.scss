@@ -1,0 +1,1188 @@
+.workoutViewContainer {
+  padding: 2rem 0;
+  color: #1f2937;
+
+  .title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    color: #111;
+    position: relative;
+    text-align: center;
+    width: 100%;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 5px;
+      background: #dc2626;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+  }
+}
+
+.trainerCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 24px;
+  margin-bottom: 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+
+  }
+
+  .trainerPhotoContainer {
+    position: relative;
+  }
+
+  .trainerPhoto,
+  .placeholderPhoto {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #dc2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+  }
+
+  .placeholderPhoto {
+    background: linear-gradient(135deg, #111 0%, #333 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+
+  .trainerLabel {
+    font-size: 0.85rem;
+    color: #262626;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+  }
+
+  .trainerName {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #111;
+    margin: 0;
+  }
+}
+
+.planNameBadge {
+
+  color: #dc2626;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+
+  .planLabel {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .planName {
+    font-size: 1.5rem;
+    font-weight: 800;
+  }
+}
+
+.exerciseThumbs {
+  display: flex;
+  gap: 8px;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+
+.exThumb {
+  position: relative;
+  width: 60px;
+  height: 45px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+    border-color: #dc2626;
+    z-index: 2;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .exThumbSets {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 2px 0;
+  }
+}
+
+.exThumbMore {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  border: 2px dashed #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.weekNavigator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1rem 2rem;
+  border-radius: 16px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+
+  .weekLabel {
+    font-weight: 800;
+    color: #111;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.btnNav {
+  background: transparent;
+  color: #4b5563;
+  border: 2px solid transparent;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f9fafb;
+
+  &:hover:not(:disabled) {
+    background: #fee2e2;
+    color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: none;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    background: #f3f4f6;
+    color: #9ca3af;
+  }
+}
+
+.calendar {
+  background: transparent;
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+}
+
+
+.calendarGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.dayCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(220, 38, 38, 0.1);
+    border-color: #fca5a5;
+  }
+
+  &.noSession {
+    opacity: 0.7;
+    background: #f9fafb;
+    border-style: dashed;
+    min-height: auto;
+
+    &:hover {
+      opacity: 1;
+      background: white;
+    }
+  }
+}
+
+.dayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f3f4f6;
+
+  .dayName {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: #dc2626;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .dayDate {
+    color: #9ca3af;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: #f3f4f6;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+}
+
+.sessionInfo {
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+
+  .sessionTime,
+  .sessionExCount {
+    margin-bottom: 0.75rem;
+    color: #4b5563;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 500;
+  }
+}
+
+.completionStatus {
+  margin: 1rem 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 0.65rem 0.5rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    background: white;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  .statusCompleted {
+    color: #dc2626;
+    border: 2px solid #dc2626;
+
+    &:hover {
+      background: #ffffff;
+    }
+  }
+
+  .statusMissed {
+    color: #dc2626;
+    border: 2px solid #dc2626;
+
+    &:hover {
+      background: #ffffff;
+    }
+  }
+
+  .statusPending {
+    color: #dc2626;
+    border: 2px solid #dc2626;
+
+    &:hover {
+      background: #ffffff;
+    }
+  }
+
+  .statusScheduled {
+    color: #dc2626;
+    border: 2px solid #dc2626;
+
+    &:hover {
+      background: #ffffff;
+    }
+  }
+}
+
+.dayActions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.btnDetails,
+.btnMark {
+  padding: 0.9rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  width: 100%;
+  font-size: 0.95rem;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.btnDetails {
+  background: #dc2626;
+  color: white;
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+
+  &:hover {
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+  }
+}
+
+.btnMark {
+  background: white;
+  border: 2px solid #dc2626;
+  color: #dc2626;
+  font-weight: 700;
+
+  &:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    color: white;
+    border-color: #dc2626;
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+  }
+}
+
+.noSessionText {
+  text-align: center;
+  color: #9ca3af;
+  padding: 3rem 0;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.exercisesList {
+  background: #fff;
+  padding: 0;
+
+  .modalTime {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  h4 {
+    margin: 1.5rem 0 1rem 0;
+    color: #111;
+    font-weight: 800;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    svg {
+      color: #dc2626;
+    }
+  }
+}
+
+.exerciseCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #dc2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.1);
+  }
+}
+
+.exerciseHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.exerciseInfo {
+  flex: 1;
+}
+
+.exStats {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.statBadge {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  strong {
+    font-weight: 800;
+  }
+}
+
+.videoContainer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #111;
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+.exerciseItem {
+  display: flex;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 16px;
+  margin-bottom: 1.25rem;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: #dc2626;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.08);
+  }
+}
+
+.exNumber {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3);
+}
+
+.exDetails {
+  flex: 1;
+
+  .exName {
+    font-weight: 800;
+    color: #1f2937;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .exSetsReps {
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    display: block;
+    background: #fef2f2;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .exInstructions {
+    color: #4b5563;
+    margin: 0.75rem 0;
+    line-height: 1.6;
+    font-size: 1rem;
+
+    strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #111;
+    }
+  }
+
+  .exVideo {
+    margin-top: 1rem;
+
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 12px;
+      background: #eff6ff;
+      border-radius: 8px;
+      transition: all 0.2s;
+
+      &:hover {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+    }
+  }
+}
+
+.completionForm {
+  background: white;
+  padding: 0;
+
+  .formField {
+    margin-bottom: 1.5rem;
+
+    >label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #111;
+      font-size: 0.95rem;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #374151;
+      cursor: pointer;
+      padding: 1rem 1.25rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        border-color: #dc2626;
+        background: #fef2f2;
+      }
+
+      &:has(input:checked) {
+        border-color: #dc2626;
+        background: #fef2f2;
+      }
+
+      input[type="radio"] {
+        margin-right: 0.75rem;
+        accent-color: #dc2626;
+        transform: scale(1.3);
+      }
+
+      span {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+
+    input[type="url"],
+    select,
+    text,
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1rem;
+      color: #1f2937;
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #dc2626;
+        box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+      }
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+
+    textarea {
+      resize: vertical;
+      font-family: inherit;
+      min-height: 100px;
+    }
+
+    small {
+      display: block;
+      color: #6b7280;
+      margin-top: 0.5rem;
+      font-size: 0.85rem;
+    }
+  }
+
+  .fieldLabel {
+    display: block !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #111;
+    font-size: 0.95rem;
+  }
+
+  .proofUpload {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .uploadOption {
+    flex-shrink: 0;
+  }
+
+  .uploadBtn {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem !important;
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+    }
+  }
+
+  .uploadDivider {
+    color: #9ca3af;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .urlInput {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .proofPreview {
+    margin-top: 1rem;
+    position: relative;
+    display: inline-block;
+
+    img {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: 12px;
+      border: 2px solid #e5e7eb;
+      object-fit: cover;
+    }
+
+    .removeProof {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #dc2626;
+      color: white;
+      border: none;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #991b1b;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.btnClose,
+.btnCancel {
+  background: white;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+
+  &:hover {
+    background: #f9fafb;
+    color: #1f2937;
+    border-color: #d1d5db;
+  }
+}
+
+.btnSave {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 10px;
+  border: none;
+  font-weight: 600;
+
+  &:hover {
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+    transform: translateY(-2px);
+  }
+}
+
+.loading,
+.emptyState {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: white;
+  border-radius: 20px;
+  margin-top: 2rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+
+  h3 {
+    color: #111;
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 800;
+  }
+
+  p {
+    color: #6b7280;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+}
+
+// Modal Styles overrides
+.modalContent {
+  background-color: white !important;
+  border: none !important;
+  color: #1f2937;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+
+  :global(.modal-header) {
+    border-bottom: 1px solid #f3f4f6 !important;
+    padding: 1.5rem 2rem !important;
+
+    .modal-title {
+      color: #111;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    .btn-close {
+      // Reset close button for light theme
+      background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  :global(.modal-body) {
+    padding: 2rem !important;
+  }
+
+  :global(.modal-footer) {
+    border-top: 1px solid #f3f4f6 !important;
+    padding: 1.5rem 2rem !important;
+  }
+}
+
+// Light Mode Defaults (as currently defined) are kept
+// We append Dark Mode overrides at the end or nested
+
+:global(.dark-mode) {
+  .workoutViewContainer {
+    color: #f3f4f6;
+
+    .title {
+      color: #fbeaff;
+
+      &::after {
+        background: #dc2626;
+      }
+    }
+  }
+
+  .trainerCard {
+    background: #262626;
+    border-color: #333;
+    box-shadow: none;
+
+    .trainerName {
+      color: white;
+    }
+
+    .trainerLabel {
+
+      color: #9ca3af;
+    }
+
+    .trainerPhoto,
+    .placeholderPhoto {
+      border-color: #dc2626;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .planNameBadge {
+    .planLabel {
+      color: #9ca3af;
+    }
+
+    .planName {
+      color: #dc2626;
+    }
+  }
+
+  .weekNavigator {
+    background: #1a1a1a;
+    border-color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+    .weekLabel {
+      color: #f3f4f6;
+    }
+  }
+
+  .btnNav {
+    color: #dc2626;
+    border: 1px solid #dc2626;
+    background: transparent;
+
+    &:hover {
+      background: #dc2626;
+      color: white;
+      box-shadow: 0 0 10px rgba(220, 38, 38, 0.3);
+    }
+  }
+
+  .dayCard {
+    background: #262626;
+    border-color: #404040;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      border-color: #dc2626;
+    }
+
+    &.noSession {
+      background: #1f1f1f;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  .dayHeader {
+    border-color: #404040;
+
+    .dayName {
+      color: #dc2626;
+    }
+
+    .dayDate {
+      background: #333;
+      color: #9ca3af;
+    }
+  }
+
+  .sessionInfo {
+
+    .sessionTime,
+    .sessionExCount {
+      color: #d1d5db;
+
+      svg {
+        color: #d1d5db;
+      }
+    }
+  }
+
+  .completionStatus {
+    span {
+      background: #1a1a1a;
+    }
+
+    .statusCompleted,
+    .statusMissed,
+    .statusPending,
+    .statusScheduled {
+      border-color: #dc2626;
+      color: #dc2626;
+
+      &:hover {
+        background: #262626;
+      }
+    }
+  }
+
+  .exercisesList {
+    background: #1a1a1a;
+
+    .modalTime {
+      background: #262626;
+      border-color: #333;
+      color: #d1d5db;
+    }
+
+    h4 {
+      color: #f3f4f6;
+    }
+  }
+
+  .exerciseItem {
+    background: #262626;
+    border-color: #333;
+
+    &:hover {
+      border-color: #404040;
+      background: #2d2d2d;
+    }
+  }
+
+  .exDetails {
+    .exName {
+      color: #f3f4f6;
+    }
+
+    .exSetsReps {
+      background: rgba(220, 38, 38, 0.1);
+      color: #ef4444;
+    }
+
+    .exInstructions {
+      color: #9ca3af;
+
+      strong {
+        color: #d1d5db;
+      }
+    }
+
+    .exVideo a {
+      background: rgba(59, 130, 246, 0.1);
+      color: #60a5fa;
+
+      &:hover {
+        background: rgba(59, 130, 246, 0.2);
+        color: #93c5fd;
+      }
+    }
+  }
+
+  .completionForm {
+    background: #1a1a1a;
+
+    .formField {
+      label {
+        color: #d1d5db;
+        background: #262626;
+        border-color: #404040;
+
+        &:hover {
+          background: #333;
+        }
+
+        input[type="radio"] {
+          accent-color: #dc2626;
+        }
+
+        input[type="radio"]:checked+span {
+          color: #dc2626;
+        }
+
+        span {
+          color: #d1d5db;
+        }
+      }
+
+      .fieldLabel {
+        color: #9ca3af;
+      }
+
+      input[type="url"],
+      select,
+      textarea {
+        background: #262626;
+        border-color: #404040;
+        color: white;
+
+        &::placeholder {
+          color: #6b7280;
+        }
+
+        &:focus {
+          border-color: #dc2626;
+          box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+        }
+      }
+
+      select option {
+        background: #262626;
+        color: white;
+      }
+    }
+
+    .proofUpload {
+      .uploadBtn {
+        background: #dc2626;
+        color: white;
+
+        &:hover {
+          background: #b91c1c;
+        }
+      }
+    }
+
+    .proofPreview {
+      background: #262626;
+      border-color: #404040;
+    }
+  }
+
+  .btnClose,
+  .btnCancel {
+    background: transparent;
+    color: #9ca3af;
+    border-color: #4b5563;
+
+    &:hover {
+      background: #262626;
+      color: white;
+      border-color: #6b7280;
+    }
+  }
+
+  .loading,
+  .emptyState {
+    background: #1a1a1a;
+    border-color: #333;
+
+    h3 {
+      color: #f3f4f6;
+    }
+  }
+
+  .noSessionText {
+    color: #6b7280;
+  }
+}
+
+// Modal Global Overrides for Dark Mode
+:global(.dark-mode) .modalContent {
+  background-color: #1a1a1a !important;
+  border: 1px solid #333 !important;
+  color: #f3f4f6;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+
+  :global(.modal-header) {
+    border-bottom: 1px solid #333 !important;
+
+    .modal-title {
+      color: #f3f4f6;
+    }
+
+    .btn-close {
+      background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat !important;
+      opacity: 0.8;
+    }
+  }
+
+  :global(.modal-footer) {
+    border-top: 1px solid #333 !important;
+  }
+}

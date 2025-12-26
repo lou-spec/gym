@@ -1,0 +1,598 @@
+.chatContainer {
+  padding: 2rem 0;
+
+  .title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    color: #111;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 4px;
+      background: #dc2626;
+      margin-top: 5px;
+      border-radius: 2px;
+    }
+  }
+}
+
+.chatRow {
+  // Dynamic height: grows with content but respects viewport limits
+  height: auto;
+  min-height: 500px; // Reasonable starting size
+  max-height: 85vh; // Don't overflow screen too much
+  display: flex;
+  align-items: stretch; // Ensure both columns adapt
+}
+
+// .contactsColumn and .messagesColumn heights handled by flex stretch
+
+.contactsList {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem;
+  height: 100%; // Fill the stretch height
+  max-height: 85vh; // Double safety
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+
+  h3 {
+    color: #111;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    padding-left: 0.5rem;
+    border-left: 4px solid #dc2626;
+  }
+}
+
+.emptyContacts {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.contactItem {
+  padding: 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 8px;
+  margin-bottom: 4px;
+
+  &:hover {
+    background: #fef2f2; // Very light red
+  }
+
+  &.active {
+    background: #fef2f2;
+    border-left: 4px solid #dc2626; // Primary Red
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.1);
+  }
+}
+
+.contactInfo {
+  .contactName {
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .contactRole {
+    font-size: 0.8rem;
+    color: #dc2626;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+  }
+
+  .contactEmail {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+  }
+
+  .lastMessage {
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+}
+
+.unreadBadge {
+  background: #dc2626;
+  color: white;
+  border-radius: 50%;
+  padding: 0.25rem 0.5rem;
+  min-width: 24px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+}
+
+.chatArea {
+  background: white;
+  border-radius: 16px;
+  height: 100%; // Fill the stretch height
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+}
+
+.chatHeader {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .chatHeaderInfo {
+    h3 {
+      margin: 0 0 0.25rem 0;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+  }
+
+  .contactEmail {
+    font-size: 0.9rem;
+    opacity: 0.9;
+  }
+}
+
+.absenceAlertWrapper {
+  position: relative;
+}
+
+.absenceAlertBtn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+
+  &:hover {
+    background: #991b1b;
+    transform: translateY(-1px);
+  }
+}
+
+.absenceDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  min-width: 280px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.absenceDropdownTitle {
+  background: #dc2626;
+  color: white;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.absenceItem {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #fef2f2;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.absenceDate {
+  font-weight: 600;
+  color: #dc2626;
+}
+
+.absenceReason {
+  font-size: 0.85rem;
+  color: #6b7280;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.messagesArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background: #f9fafb;
+  min-height: 300px; // Ensure message area has some height
+}
+
+.loading,
+.emptyMessages {
+  text-align: center;
+  padding: 2rem;
+  color: #6b7280;
+}
+
+.message {
+  margin-bottom: 1rem;
+  display: flex;
+
+  &.sent {
+    justify-content: flex-end;
+
+    .messageContent {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      color: white;
+      box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+    }
+  }
+
+  &.received {
+    justify-content: flex-start;
+
+    .messageContent {
+      background: white;
+      color: #1f2937;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.messageContent {
+  max-width: 70%;
+  padding: 1rem;
+  border-radius: 12px;
+  position: relative;
+
+  .alertBadge {
+    background: #ea580c; // Orange
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  .messageText {
+    margin-bottom: 0.5rem;
+    word-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  .messageTime {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-align: right;
+  }
+}
+
+.messageImageContainer {
+  margin-bottom: 0.5rem;
+}
+
+.messageImage {
+  max-width: 200px; // Reduced from 100% (was effectively limited by container but could be huge)
+  max-height: 200px; // Reduced from 300px
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  object-fit: cover; // Ensure it looks good small
+
+  &:hover {
+    opacity: 0.95;
+  }
+}
+
+// Container for Input + Preview
+.inputArea {
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.imagePreview {
+  padding: 0.25rem 0.5rem 0; // Reduced padding
+  display: flex;
+  align-items: center;
+  background: #f9fafb;
+  border-bottom: 1px solid #eee;
+
+  img {
+    height: 40px; // Smaller preview
+    width: auto;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    object-fit: cover;
+  }
+
+  .removePreviewBtn {
+    margin-left: 0.5rem;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px; // Smaller button
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.8rem;
+
+    &:hover {
+      background: #dc2626;
+    }
+  }
+}
+
+.messageForm {
+  display: flex !important; // Force flex
+  flex-direction: row !important; // Force row
+  align-items: center !important; // Force center vertical
+  padding: 0.5rem; // Reduced from 0.75rem 1rem
+  border-top: none;
+  gap: 0.5rem;
+  background: white;
+  width: 100%;
+}
+
+.attachActions {
+  display: flex;
+  gap: 0.1rem; // Tighter gap
+  align-items: center;
+}
+
+.attachButton {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 0.4rem; // Reduced padding
+  border-radius: 50%;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: #f3f4f6;
+    color: #dc2626;
+  }
+
+  svg {
+    width: 18px; // Force smaller icon
+    height: 18px;
+  }
+}
+
+.messageInput {
+  flex: 1;
+  padding: 0.5rem 0.8rem; // Slimmer input
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  font-size: 0.9rem; // Slightly smaller text
+  background: #f9fafb;
+  transition: all 0.2s;
+  min-width: 0; // Allow flex shrinking
+
+  &:focus {
+    outline: none;
+    border-color: #dc2626;
+    background: white;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1); // Smaller shadow ring
+  }
+}
+
+.sendButton {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem; // Compact button
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+  white-space: nowrap; // Prevent wrapping
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(220, 38, 38, 0.3);
+  }
+}
+
+.noSelection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: white;
+  border-radius: 16px;
+  color: #6b7280;
+  font-size: 1.2rem;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+
+  p {
+    padding: 2rem;
+    background: #f9fafb;
+    border-radius: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chatRow {
+    height: auto;
+    min-height: 600px;
+  }
+
+  .contactsList {
+    max-height: 300px;
+    margin-bottom: 1rem;
+  }
+
+  .chatArea {
+    height: 500px;
+  }
+
+  .messageContent {
+    max-width: 85%;
+  }
+}
+
+// Global Dark Mode Overrides
+:global(.dark-mode) {
+  .chatContainer {
+    .title {
+      color: #f3f4f6;
+    }
+  }
+
+  .contactsList {
+    background: #1a1a1a;
+    border-color: #333;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+    h3 {
+      color: #f3f4f6;
+    }
+  }
+
+  .contactItem {
+    border-bottom-color: #262626;
+
+    &:hover {
+      background: #262626;
+    }
+
+    &.active {
+      background: #262626;
+      border-left-color: #dc2626;
+    }
+  }
+
+  .contactInfo {
+    .contactName {
+      color: #e5e7eb;
+    }
+
+    .contactEmail {
+      color: #9ca3af;
+    }
+
+    .lastMessage {
+      color: #6b7280;
+    }
+  }
+
+  .chatArea {
+    background: #1a1a1a;
+    border-color: #333;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .chatHeader {
+    border-bottom: 1px solid #333;
+  }
+
+  .messagesArea {
+    background: #0f0f0f;
+  }
+
+  .inputArea {
+    background: #1a1a1a;
+    border-top-color: #333;
+  }
+
+  .imagePreview {
+    img {
+      border-color: #404040;
+    }
+  }
+
+  .messageInput {
+    background: #262626;
+    border-color: #404040;
+    color: white;
+
+    &:focus {
+      border-color: #dc2626;
+      background: #2d2d2d;
+    }
+  }
+
+  .attachButton {
+    color: #9ca3af;
+
+    &:hover {
+      background: #262626;
+      color: #ef4444;
+    }
+  }
+
+  .messageForm {
+    background: #1a1a1a;
+    border-top-color: #333; // If applied
+  }
+
+  .message.received .messageContent {
+    background: #262626;
+    color: #e5e7eb;
+    border-color: #404040;
+  }
+
+  .loading,
+  .emptyMessages,
+  .noSelection {
+    color: #9ca3af;
+
+    &.noSelection {
+      background: #1a1a1a;
+      border-color: #333;
+
+      p {
+        background: #262626;
+      }
+    }
+  }
+}

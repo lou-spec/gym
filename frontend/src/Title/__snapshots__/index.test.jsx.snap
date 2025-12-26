@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Title > renders correctly the component 1`] = `
+<div>
+  <h1
+    class="_text_2a1e92"
+  >
+    Hello
+  </h1>
+</div>
+`;

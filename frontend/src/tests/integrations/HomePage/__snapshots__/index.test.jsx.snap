@@ -1,0 +1,569 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LandingPage > renders correctly the component (Snapshot) 1`] = `
+<div>
+  <div
+    class="landing-page "
+  >
+    <section
+      class="hero-section"
+    >
+      <div
+        class="hero-container"
+      >
+        <div
+          class="hero-text"
+        >
+          <h1
+            class="hero-title fade-in"
+          >
+            <span
+              class="gradient-red"
+            >
+              FIT   LIFE
+            </span>
+            <br />
+          </h1>
+          <p
+            class="hero-description slide-up"
+          >
+            TREINA. EVOLUI. DOMINA.
+          </p>
+          <a
+            class="cta-button slide-up"
+            href="/login"
+          >
+            Acessar
+            <svg
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M9 5l7 7-7 7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div
+        class="carousel-wrapper"
+      >
+        <div
+          class="swiper swiper-dark swiper-coverflow swiper-3d swiper-initialized swiper-horizontal swiper-watch-progress"
+        >
+          <div
+            class="swiper-wrapper"
+            style="cursor: grab; transition-duration: 0ms; transition-delay: 0ms;"
+          >
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="9"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Spinning"
+                  src="https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    ESTÚDIO CYCLING
+                  </h2>
+                  <p>
+                    Imersão total com som, luzes e instrutores de topo.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="0"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Musculação"
+                  src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    MUSCULAÇÃO SMART
+                  </h2>
+                  <p>
+                    Equipamento de elite conectado ao teu plano digital.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide swiper-slide-prev"
+              data-swiper-slide-index="1"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Cardio"
+                  src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    ZONA CARDIO
+                  </h2>
+                  <p>
+                    Monitorização em tempo real do teu desempenho.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide swiper-slide-active"
+              data-swiper-slide-index="2"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Cross Training"
+                  src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    CROSS TRAINING
+                  </h2>
+                  <p>
+                    Supera limites com o apoio da nossa comunidade.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide swiper-slide-next"
+              data-swiper-slide-index="3"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Personal Trainer"
+                  src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    Gestão de Personal Trainers
+                  </h2>
+                  <p>
+                    O teu treinador.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="4"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Spinning"
+                  src="https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    ESTÚDIO CYCLING
+                  </h2>
+                  <p>
+                    Imersão total com som, luzes e instrutores de topo.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="5"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Musculação"
+                  src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    MUSCULAÇÃO SMART
+                  </h2>
+                  <p>
+                    Equipamento de elite conectado ao teu plano digital.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="6"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Cardio"
+                  src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    ZONA CARDIO
+                  </h2>
+                  <p>
+                    Monitorização em tempo real do teu desempenho.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="7"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Cross Training"
+                  src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    CROSS TRAINING
+                  </h2>
+                  <p>
+                    Supera limites com o apoio da nossa comunidade.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="swiper-slide"
+              data-swiper-slide-index="8"
+              style="transition-duration: 0ms;"
+            >
+              <div
+                class="slide-card-dark"
+              >
+                <img
+                  alt="Personal Trainer"
+                  src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop"
+                />
+                <div
+                  class="slide-overlay-dark"
+                />
+                <div
+                  class="slide-content-dark"
+                >
+                  <h2>
+                    Gestão de Personal Trainers
+                  </h2>
+                  <p>
+                    O teu treinador.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="swiper-custom-pagination"
+        >
+          <span
+            class="swiper-pagination-bullet "
+          />
+          <span
+            class="swiper-pagination-bullet "
+          />
+          <span
+            class="swiper-pagination-bullet swiper-pagination-bullet-active"
+          />
+          <span
+            class="swiper-pagination-bullet "
+          />
+          <span
+            class="swiper-pagination-bullet "
+          />
+        </div>
+      </div>
+    </section>
+    <section
+      class="features-section"
+    >
+      <div
+        class="features-container"
+      >
+        <div
+          class="features-header"
+        >
+          <span
+            class="features-label"
+          >
+            Porquê Nós?
+          </span>
+          <h2
+            class="features-title"
+          >
+            O TEU 
+            <span
+              class="features-title-highlight"
+            >
+              SUCESSO
+            </span>
+             COMEÇA AQUI
+          </h2>
+        </div>
+        <div
+          class="features-grid"
+        >
+          <div
+            class="feature-card"
+          >
+            <div
+              class="feature-icon-wrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-dumbbell feature-icon"
+                fill="none"
+                height="32"
+                stroke="white"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.596 12.768a2 2 0 1 0 2.829-2.829l-1.768-1.767a2 2 0 0 0 2.828-2.829l-2.828-2.828a2 2 0 0 0-2.829 2.828l-1.767-1.768a2 2 0 1 0-2.829 2.829z"
+                />
+                <path
+                  d="m2.5 21.5 1.4-1.4"
+                />
+                <path
+                  d="m20.1 3.9 1.4-1.4"
+                />
+                <path
+                  d="M5.343 21.485a2 2 0 1 0 2.829-2.828l1.767 1.768a2 2 0 1 0 2.829-2.829l-6.364-6.364a2 2 0 1 0-2.829 2.829l1.768 1.767a2 2 0 0 0-2.828 2.829z"
+                />
+                <path
+                  d="m9.6 14.4 4.8-4.8"
+                />
+              </svg>
+            </div>
+            <h3
+              class="feature-card-title"
+            >
+              Equipamento Premium
+            </h3>
+            <p
+              class="feature-card-text"
+            >
+              Máquinas de última geração e pesos livres para todos os níveis.
+            </p>
+          </div>
+          <div
+            class="feature-card"
+          >
+            <div
+              class="feature-icon-wrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-users feature-icon"
+                fill="none"
+                height="32"
+                stroke="white"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <path
+                  d="M16 3.128a4 4 0 0 1 0 7.744"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </div>
+            <h3
+              class="feature-card-title"
+            >
+              Personal Trainers
+            </h3>
+            <p
+              class="feature-card-text"
+            >
+              Profissionais certificados para guiar a tua transformação.
+            </p>
+          </div>
+          <div
+            class="feature-card"
+          >
+            <div
+              class="feature-icon-wrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-clock feature-icon"
+                fill="none"
+                height="32"
+                stroke="white"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 6v6l4 2"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+              </svg>
+            </div>
+            <h3
+              class="feature-card-title"
+            >
+              Acesso 24/7
+            </h3>
+            <p
+              class="feature-card-text"
+            >
+              Treina quando quiseres. O ginásio está sempre aberto para ti.
+            </p>
+          </div>
+          <div
+            class="feature-card"
+          >
+            <div
+              class="feature-icon-wrapper"
+            >
+              <svg
+                aria-hidden="true"
+                class="lucide lucide-target feature-icon"
+                fill="none"
+                height="32"
+                stroke="white"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="32"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="6"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="2"
+                />
+              </svg>
+            </div>
+            <h3
+              class="feature-card-title"
+            >
+              Resultados Reais
+            </h3>
+            <p
+              class="feature-card-text"
+            >
+              Programas personalizados focados nos teus objetivos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+`;

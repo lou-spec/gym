@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+
+.container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+    font-family: 'Poppins', sans-serif;
+    transition: background-color 0.3s ease;
+
+    h1 {
+        display: none;
+    }
+}
+
+.row {
+    width: 100%;
+    margin: 0 !important;
+    display: flex;
+}
+
+
+:global {
+    .nav-tabs {
+        position: relative; // Changed from fixed
+        width: 280px;
+        min-height: calc(100vh - 80px); // Keep usage of height but min-height for static
+        background-color: #151414;
+        border: none;
+        flex-shrink: 0; // Prevent shrinking
+
+        display: flex;
+        flex-direction: column;
+        padding: 20px 1.5rem;
+        gap: 1rem;
+        z-index: 900;
+        // top/left removed as they don't apply to static/relative like fixed
+
+        .nav-item {
+            width: 100%;
+            margin: 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            color: #ffffff;
+            font-weight: 500;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: transparent;
+            font-size: 1rem;
+
+            &:hover,
+            &.active {
+                background-color: #dc2626;
+                transform: translateX(5px);
+                color: #ffffff;
+                box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+            }
+        }
+    }
+
+
+    .tab-content {
+        // margin-left removed
+        margin: 0;
+        flex: 1; // Take remaining width
+        padding: 20px;
+        min-height: calc(100vh - 80px);
+        background-color: var(--bg-primary);
+        transition: background-color 0.3s ease;
+    }
+}
+
+.sidebarTitle {
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    padding: 0 8px;
+    margin-left: auto;
+    background: #dc2626;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+
+    :global {
+        .nav-tabs {
+            position: relative;
+            top: 0;
+            width: 100%;
+            height: auto;
+            flex-direction: row;
+            overflow-x: auto;
+            padding: 1rem;
+
+            .nav-link {
+                white-space: nowrap;
+                justify-content: center;
+                width: auto;
+
+                &:hover,
+                &.active {
+                    transform: none;
+                }
+            }
+        }
+
+        .tab-content {
+            margin-left: 0;
+            margin-top: 0;
+            width: 100%;
+            padding: 20px;
+        }
+    }
+}

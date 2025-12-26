@@ -1,0 +1,65 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header > renders correctly the component 1`] = `
+<div>
+  <header
+    class="_header_b4135b  "
+  >
+    <a
+      class="_logoContainer_b4135b"
+      href="/"
+    >
+      <img
+        alt="FitLife"
+        class="_logo_b4135b"
+        src="/src/logo.png"
+      />
+      <span
+        class="_logoText_b4135b"
+      >
+        FitLife
+      </span>
+    </a>
+    <nav
+      class="_nav_b4135b"
+    >
+      <a
+        class="_navLink_b4135b _active_b4135b"
+        href="/"
+      >
+        Home
+      </a>
+    </nav>
+    <div
+      class="_rightSection_b4135b"
+    >
+      <button
+        aria-label="Toggle theme"
+        class="_themeToggle_b4135b"
+      >
+        <svg
+          fill="none"
+          height="20"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+          />
+        </svg>
+      </button>
+      <a
+        class="_loginBtn_b4135b"
+        href="/login"
+      >
+        Login
+      </a>
+    </div>
+  </header>
+</div>
+`;

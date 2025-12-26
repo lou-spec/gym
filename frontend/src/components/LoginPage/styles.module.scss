@@ -1,0 +1,602 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,500;0,600;0,700;1,100&display=swap');
+
+// Variáveis globais definidas em src/index.scss
+
+* {
+  box-sizing: border-box;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  padding-right: 0;
+}
+
+.form__title {
+  text-align: center;
+  color: var(--form-text);
+  font-weight: 600;
+  font-size: 30px;
+  margin: 0 0 8px;
+  transition: color 0.3s ease;
+}
+
+.form__description {
+  color: var(--form-text-secondary);
+  text-align: center;
+  margin: 0 0 32px;
+  transition: color 0.3s ease;
+}
+
+.form__animation {
+  background-color: var(--form-animation-bg);
+  border-radius: 24px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 60px;
+  transition: background-color 0.3s ease;
+}
+
+.loginForm {
+  width: 100%;
+  max-width: 400px; // Match input/button width for perfect alignment
+  margin: 0 auto;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.logo svg {
+  width: 24px;
+  height: 24px;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-control__label {
+  display: block;
+  margin: 14px 0 4px;
+  color: var(--form-text);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.form-control {
+  height: 52px;
+  display: block;
+  width: 100%; // Changed from 400px to take parent width
+  border: 1px solid var(--form-input-border);
+  padding: 18px 20px;
+  transition: outline 200ms ease, box-shadow 200ms ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  border-radius: 12px;
+  outline: none;
+  background-color: var(--form-input-bg);
+  color: var(--form-input-text);
+  margin-bottom: 0; // Removed margin, handled by wrapper
+  font-size: 16px;
+}
+
+// ... existing :focus and :user-invalid ...
+
+// New standard wrapper for all inputs (Name & Password)
+.inputGroup {
+  width: 400px;
+  margin-bottom: 28px;
+  position: relative; // For icons
+}
+
+.password-field {
+  // Deprecated effectively, merging into inputGroup usage or keeping for specific overrides if needed
+  position: relative;
+}
+
+// ...
+.form__submit {
+  height: 52px;
+  width: 400px; // Keep fixed to match inputGroup
+  display: block;
+  background: var(--form-button-bg);
+  border-radius: 100px;
+  border: none;
+  color: var(--form-button-text);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.2s ease;
+  margin: 10px auto;
+  text-align: center;
+}
+
+.form__submit:hover {
+  box-shadow: 0 -1px 10px rgba(128, 128, 128, 0.4);
+  opacity: 0.9;
+}
+
+.password__settings {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.password__settings__remember {
+  font-size: 14px;
+  color: #0d0c22;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.password__settings__remember input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  margin: 0;
+}
+
+.custom__checkbox {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid #6b7280;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: .2s;
+}
+
+.custom__checkbox svg {
+  transform: scale(0);
+  width: 16px;
+  height: 16px;
+}
+
+input:focus+.custom__checkbox {
+  border-color: #0d0c22;
+  box-shadow: 0 0 0 4px rgb(0 0 0 / 10%);
+}
+
+input:checked+.custom__checkbox svg {
+  transform: scale(1);
+}
+
+a {
+  font-size: 14px;
+  color: var(--form-link);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.form__footer {
+  font-size: 14px;
+  text-align: center;
+  margin: 32px 0 0;
+
+  a {
+    color: var(--form-link);
+    transition: color 0.3s ease;
+  }
+}
+
+.forgotPasswordLink {
+  display: block;
+  text-align: center;
+  margin-top: 24px;
+  color: var(--form-link);
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  opacity: 0.9;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.02);
+    text-decoration: underline;
+  }
+}
+
+.ball {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: var(--ball-color);
+  animation: bounce 3s ease-out forwards;
+
+  margin: 0 auto;
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.ball::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+}
+
+@keyframes bounce {
+  5% {
+    height: 300px;
+    width: 300px;
+  }
+
+  10% {
+    height: 300px;
+    width: 280px;
+  }
+
+  15% {
+    height: 280px;
+    width: 320px;
+    transform: translateY(0);
+  }
+
+  20% {
+    height: 300px;
+    width: 320px;
+  }
+
+  25% {
+    transform: translateY(-200px);
+  }
+
+  30% {
+    height: 300px;
+    width: 300px;
+  }
+
+  35% {
+    height: 300px;
+    width: 280px;
+  }
+
+  40% {
+    height: 280px;
+    width: 320px;
+    transform: translateY(0);
+  }
+
+  45% {
+    height: 300px;
+    width: 320px;
+  }
+
+  50% {
+    transform: translateY(-160);
+  }
+
+  55% {
+    height: 300px;
+    width: 300px;
+  }
+
+  60% {
+    height: 300px;
+    width: 280px;
+  }
+
+  65% {
+    height: 280px;
+    width: 320px;
+    transform: translateY(0);
+  }
+
+  70% {
+    height: 300px;
+    width: 320px;
+  }
+
+  75% {
+    transform: translateY(-60px);
+  }
+
+  80% {
+    height: 300px;
+    width: 280px;
+  }
+
+  85% {
+    height: 280px;
+    width: 320px;
+    transform: translateY(-20px);
+  }
+
+  90% {
+    height: 300px;
+    width: 320px;
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.ball__eyes {
+  display: flex;
+  gap: 60px;
+  margin-top: 50px;
+  justify-content: center;
+}
+
+.eye {
+  background: var(--ball-eye-bg);
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  padding: 3px;
+  display: block;
+  transition: background 0.3s ease;
+}
+
+.eye:before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  background: var(--ball-eye-pupil);
+  border-radius: 100%;
+  display: block;
+  transition: background 0.3s ease;
+}
+
+.ball__mouth {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  background: var(--ball-mouth);
+  margin: 10px auto;
+  clip-path: polygon(100% 50%, 100% 100%, 0 100%, 0 50%);
+  transition: background 0.3s ease;
+}
+
+.eye_wrap {
+  overflow: hidden;
+  animation: blink 5s infinite;
+  width: 30px;
+  height: 30px;
+  transition: .3s;
+  ;
+}
+
+#face,
+#ball {
+  transition: .3s;
+}
+
+#ball.sad .eye_wrap:first-child {
+  clip-path: polygon(67% 0, 100% 0, 100% 50%, 100% 100%, 0 100%, 0% 50%);
+}
+
+#ball.sad .eye_wrap:last-child {
+  clip-path: polygon(0 0, 43% 0, 100% 50%, 100% 100%, 0 100%, 0% 50%);
+}
+
+#ball.sad .ball__mouth {
+  transform: scaleY(-1.05);
+}
+
+#ball.sad {
+  animation: shake 1.5s;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotateY(0);
+  }
+
+  25% {
+    transform: rotateY(-15deg);
+  }
+
+  50% {
+    transform: rotateY(15deg);
+  }
+
+  100% {
+    transform: rotateY(0);
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    transform: scale(1, .05);
+  }
+
+  5%,
+  95% {
+    transform: scale(1, 1);
+  }
+}
+
+.ball__shadow {
+  background: rgb(0 0 0 / 5%);
+  box-shadow: 0 0 10px rgb(0 0 0 / 6%);
+  height: 20px;
+  width: 240px;
+  border-radius: 50%;
+  transform: scale(0.1);
+  animation: shrink 3s forwards;
+  margin-top: -30px;
+  display: none;
+}
+
+@keyframes shrink {
+
+  5%,
+  25%,
+  50%,
+  75% {
+    transform: scale(0.1);
+  }
+
+  15%,
+  40%,
+  65%,
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+#ball.look_at {
+  transform: rotate(-17deg);
+}
+
+@media (max-width: 768px) {
+  .form__animation {
+    position: fixed;
+    background: none;
+    right: 0;
+    bottom: 0;
+  }
+
+  .form__title {
+    font-size: 28px;
+  }
+
+  .ball {
+    width: 100px;
+    height: 100px;
+    animation: roll_out 1s ease-out forwards;
+    transform: translate(103px, 0);
+  }
+
+  @keyframes roll_out {
+    0% {
+      transform: translate(103px, 0) rotate(0);
+    }
+
+    100% {
+      transform: translate(0, 0) rotate(-360deg);
+    }
+  }
+
+  .ball__eyes {
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .ball__mouth {
+    width: 20px;
+    height: 20px;
+    margin: -1px auto;
+  }
+
+  .eye,
+  .eye_wrap {
+    width: 20px;
+    height: 20px;
+  }
+
+  .eye:before {
+    width: 10px;
+    height: 10px;
+  }
+
+  .ball__shadow {
+    display: none;
+  }
+
+  main {
+    display: block;
+    padding: 40px 16px;
+  }
+
+  .form {
+    padding: 0;
+    height: 100%;
+  }
+
+  .form__description {
+    margin-bottom: 16px;
+  }
+
+  #face {
+    transform: none !important;
+  }
+}
+
+.error_message {
+  color: red;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.homePage {
+  width: 100%;
+  height: 100%;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.row {
+  width: 100%;
+  height: 100%;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: var(--form-bg);
+  height: 100%;
+  min-width: 0;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: background 0.3s ease;
+
+  // Mobile fixes
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+.rightCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px;
+  min-height: 450px;
+  position: relative;
+  // padding-top: 40px; 
+  transition: background-color 0.3s ease;
+}
