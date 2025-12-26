@@ -7,7 +7,7 @@ import { usePostData } from "../../hooks/usePostData";
 import { useGetPerfil } from "../../../../hooks/useGetPerfil";
 import { toast } from "react-toastify";
 import { User, Dumbbell, Plus, Check, Eye, EyeOff, ChevronLeft, ChevronRight, Copy, RefreshCw } from "lucide-react";
-import { buildApiUrl } from "../../../utils/api";
+import { buildApiUrl } from "../../../../utils/api";
 
 export const Clients = () => {
   const { register, handleSubmit, reset, setError, formState: { errors } } = useForm();

@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { Save, Edit, X, Camera, Trash2, Eye, EyeOff, Link, UserCheck, UserX, AlertCircle } from "lucide-react";
 import Qrcode from "../../../QrcodeCreate";
-import { buildApiUrl } from "../../../utils/api";
+import { buildApiUrl } from "../../../../utils/api";
 
 export const Perfil = ({ user = { name: "" }, onUpdate }) => {
     const { register, handleSubmit, reset, formState: { isDirty } } = useForm({

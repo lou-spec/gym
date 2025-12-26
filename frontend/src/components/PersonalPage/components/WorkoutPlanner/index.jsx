@@ -8,7 +8,7 @@ import { useGetPerfil } from "../../../../hooks/useGetPerfil";
 import { Save } from "lucide-react";
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import Swal from 'sweetalert2';
-import { buildApiUrl } from "../../../utils/api";
+import { buildApiUrl } from "../../../../utils/api";
 
 const DAYS_OF_WEEK = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const DAY_LABELS = {
