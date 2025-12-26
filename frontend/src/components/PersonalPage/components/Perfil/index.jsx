@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { Save, Edit, X, Camera, Trash2, Eye, EyeOff } from "lucide-react";
 import Qrcode from "../../../QrcodeCreate";
+import { buildApiUrl } from "../../../utils/api";
 
 export const Perfil = ({ user = { name: "" }, onUpdate }) => {
     const { register, handleSubmit, reset, formState: { isDirty } } = useForm({
@@ -130,7 +131,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`/api/users/perfil`, {
+            const response = await fetch(buildApiUrl(`/api/users/perfil`), {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -215,7 +216,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
         formData.append('profileImage', selectedImage);
 
         try {
-            const response = await fetch('/api/users/perfil/upload-photo', {
+            const response = await fetch(buildApiUrl('/api/users/perfil/upload-photo'), {
                 method: 'POST',
                 credentials: 'include',
                 body: formData,
@@ -258,7 +259,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
     const handleDeletePhoto = async () => {
         try {
-            const response = await fetch('/api/users/perfil/delete-photo', {
+            const response = await fetch(buildApiUrl('/api/users/perfil/delete-photo'), {
                 method: 'DELETE',
                 credentials: 'include',
             });
@@ -340,7 +341,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
 
         setIsChangingPassword(true);
         try {
-            const response = await fetch('/api/users/perfil/change-password', {
+            const response = await fetch(buildApiUrl('/api/users/perfil/change-password'), {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {

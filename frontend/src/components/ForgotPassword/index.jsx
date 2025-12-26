@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { buildApiUrl } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import styles from "../LoginPage/styles.module.scss";
@@ -28,9 +29,10 @@ const ForgotPassword = () => {
     }
 
     try {
-      const response = await fetch("/api/auth/forgot-password", {
+      const response = await fetch(buildApiUrl("/api/auth/forgot-password"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ email }),
       });
 

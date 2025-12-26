@@ -4,6 +4,7 @@ import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { socketAddListener, socketRemoveListener } from "../../socket/socket";
 import { Paperclip, X, Image as ImageIcon, MessageCircle, AlertTriangle } from "lucide-react";
+import { buildApiUrl } from "../../utils/api";
 
 export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, onTargetSelected }) => {
   const [contacts, setContacts] = useState([]);
@@ -126,7 +127,7 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
   const updateUnreadCounts = async () => {
     // ... existing logic ...
     try {
-      const contactsResponse = await fetch('/api/chat/contacts', {
+      const contactsResponse = await fetch(buildApiUrl('/api/chat/contacts'), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -145,13 +146,13 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
     if (!currentUserId) return; // Defensive check
     try {
       // Fetch specifically my clients with a high limit to ensure all are seen
-      const usersResponse = await fetch(`/api/users/all-users?limit=100&createdBy=${currentUserId}`, {
+      const usersResponse = await fetch(buildApiUrl(`/api/users/all-users?limit=100&createdBy=${currentUserId}`), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
       const usersData = await usersResponse.json();
 
-      const contactsResponse = await fetch('/api/chat/contacts', {
+      const contactsResponse = await fetch(buildApiUrl('/api/chat/contacts'), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -179,8 +180,8 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
   const loadContacts = async () => {
     try {
       const [contactsResponse, usersResponse] = await Promise.all([
-        fetch('/api/chat/contacts', { credentials: 'include', headers: { Accept: 'application/json' } }),
-        fetch('/api/users/all-users', { credentials: 'include', headers: { Accept: 'application/json' } })
+        fetch(buildApiUrl('/api/chat/contacts'), { credentials: 'include', headers: { Accept: 'application/json' } }),
+        fetch(buildApiUrl('/api/users/all-users'), { credentials: 'include', headers: { Accept: 'application/json' } })
       ]);
 
       const contactsData = await contactsResponse.json();
@@ -217,14 +218,14 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
   const loadMessages = async (userId) => {
     setIsLoading(true);
     try {
-      const response = await fetch(`/api/chat/messages/${userId}`, {
+      const response = await fetch(buildApiUrl(`/api/chat/messages/${userId}`), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
       const data = await response.json();
       setMessages(data.messages || []);
 
-      await fetch(`/api/chat/messages/mark-read/${userId}`, {
+      await fetch(buildApiUrl(`/api/chat/messages/mark-read/${userId}`), {
         method: 'PUT',
         credentials: 'include'
       });
@@ -244,7 +245,7 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
   const loadAbsences = async (clientId) => {
     if (!isTrainer) return;
     try {
-      const response = await fetch(`/api/workouts/absences/${clientId}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/absences/${clientId}`), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -303,7 +304,7 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
         formData.append('image', fileToSend);
       }
 
-      const response = await fetch('/api/chat/messages', {
+      const response = await fetch(buildApiUrl('/api/chat/messages'), {
         method: 'POST',
         credentials: 'include',
 

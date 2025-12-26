@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { buildApiUrl } from "../../utils/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
 import { Eye, EyeOff } from 'lucide-react';
@@ -43,9 +44,10 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      const res = await fetch(`/api/auth/reset-password/${token}`, {
+      const res = await fetch(buildApiUrl(`/api/auth/reset-password/${token}`), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ password, confirmPassword }),
       });
       const data = await res.json();

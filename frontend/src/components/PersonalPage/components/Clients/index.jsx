@@ -7,6 +7,7 @@ import { usePostData } from "../../hooks/usePostData";
 import { useGetPerfil } from "../../../../hooks/useGetPerfil";
 import { toast } from "react-toastify";
 import { User, Dumbbell, Plus, Check, Eye, EyeOff, ChevronLeft, ChevronRight, Copy, RefreshCw } from "lucide-react";
+import { buildApiUrl } from "../../../utils/api";
 
 export const Clients = () => {
   const { register, handleSubmit, reset, setError, formState: { errors } } = useForm();
@@ -51,7 +52,7 @@ export const Clients = () => {
 
   const loadInviteCode = async () => {
     try {
-      const response = await fetch('/api/users/invite-code', {
+      const response = await fetch(buildApiUrl('/api/users/invite-code'), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
@@ -65,7 +66,7 @@ export const Clients = () => {
   const generateInviteCode = async () => {
     setIsLoadingCode(true);
     try {
-      const response = await fetch('/api/users/generate-invite-code', {
+      const response = await fetch(buildApiUrl('/api/users/generate-invite-code'), {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' }

@@ -4,6 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { useGetData } from "../PersonalPage/hooks/useGetData";
+import { buildApiUrl } from "../../utils/api";
 
 const COLORS = ['var(--chart-completed)', 'var(--chart-missed)', 'var(--chart-rate)'];
 
@@ -64,7 +65,7 @@ export const Dashboard = ({ clientId, isTrainer, trainerId }) => {
   const loadStats = async (cId, per) => {
     setIsLoadingStats(true);
     try {
-      const response = await fetch(`/api/workouts/stats/client/${cId}?period=${per}`, {
+      const response = await fetch(buildApiUrl(`/api/workouts/stats/client/${cId}?period=${per}`), {
         credentials: 'include',
         headers: { Accept: 'application/json' }
       });
