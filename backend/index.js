@@ -72,12 +72,14 @@ mongoose
   .catch((err) => console.error(err));
 
 const app = express();
+// Trust Render/Vercel proxies so secure cookies work behind HTTPS
+app.set('trust proxy', 1);
 const server = http.Server(app);
 
 // Allowed origins for CORS in both HTTP and Socket.IO
 const customFrontendUrl = process.env.FRONTEND_URL || "";
 const allowedOrigins = [
-  customFrontendUrl || "https://pw-class.vercel.app",
+  customFrontendUrl || "https://gym-pwa-three.vercel.app",
   "http://localhost:5173",
 ].filter(Boolean);
 
