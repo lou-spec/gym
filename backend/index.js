@@ -97,18 +97,24 @@ const isAllowedOrigin = (origin) => {
   const o = normalizeOrigin(origin);
   return o && allowedOrigins.map(normalizeOrigin).includes(o);
 };
-const corsOptions = {
-  origin(origin, callback) {
-    if (!origin || isAllowedOrigin(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true,
-  optionsSuccessStatus: 200,
+
+// Use a delegate to avoid throwing 500 on disallowed origins
+const corsOptionsDelegate = function (req, callback) {
+  const originHeader = req.header('Origin');
+  const allow = !originHeader || isAllowedOrigin(originHeader);
+  const options = allow
+    ? {
+        origin: true, // reflect the request origin
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        optionsSuccessStatus: 200,
+      }
+    : { origin: false };
+  callback(null, options);
 };
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.use(cors(corsOptionsDelegate));
+app.options("*", cors(corsOptionsDelegate));
 app.use(express.json({ limit: "100mb" }));
 app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
