@@ -96,7 +96,11 @@ const LandingPage = () => {
                             }}
                             onSwiper={(swiper) => {
                                 setSwiperInstance(swiper);
-                                setTimeout(() => setSwiperReady(true), 3000);
+                                setTimeout(() => {
+                                    swiper.update();
+                                    swiper.slideToLoop(2, 0);
+                                    setSwiperReady(true);
+                                }, 100);
                             }}
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
                             coverflowEffect={{
