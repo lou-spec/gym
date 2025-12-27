@@ -73,6 +73,13 @@ const LandingPage = () => {
                 </div>
 
                 <div className={`carousel-wrapper ${swiperReady ? 'ready' : 'loading'}`}>
+                    {!swiperReady && (
+                        <div className="carousel-skeleton">
+                            <div className="skeleton-slide"></div>
+                            <div className="skeleton-slide skeleton-center"></div>
+                            <div className="skeleton-slide"></div>
+                        </div>
+                    )}
                     {imagesLoaded && (
                         <Swiper
                             effect={'coverflow'}
@@ -87,7 +94,7 @@ const LandingPage = () => {
                             }}
                             onSwiper={(swiper) => {
                                 setSwiperInstance(swiper);
-                                setTimeout(() => setSwiperReady(true), 2900);
+                                setTimeout(() => setSwiperReady(true), 2950);
                             }}
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
                             coverflowEffect={{
