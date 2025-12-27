@@ -264,6 +264,17 @@
 .carousel-wrapper {
     width: 100%;
     overflow: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+
+    &.loading {
+        opacity: 0;
+        min-height: 360px;
+    }
+
+    &.ready {
+        opacity: 1;
+    }
 }
 
 .stats-section {

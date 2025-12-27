@@ -14,6 +14,7 @@ const LandingPage = () => {
     const { isDarkMode } = useTheme();
     const [activeIndex, setActiveIndex] = useState(2);
     const [swiperInstance, setSwiperInstance] = useState(null);
+    const [swiperReady, setSwiperReady] = useState(false);
 
     return (
         <div className={`landing-page ${isDarkMode ? 'dark-mode' : ''}`}>
@@ -43,7 +44,7 @@ const LandingPage = () => {
                     </div>
                 </div>
 
-                <div className="carousel-wrapper">
+                <div className={`carousel-wrapper ${swiperReady ? 'ready' : 'loading'}`}>
                     <Swiper
                         effect={'coverflow'}
                         grabCursor={true}
@@ -55,7 +56,10 @@ const LandingPage = () => {
                             delay: 3000,
                             disableOnInteraction: false,
                         }}
-                        onSwiper={setSwiperInstance}
+                        onSwiper={(swiper) => {
+                            setSwiperInstance(swiper);
+                        }}
+                        onInit={() => setSwiperReady(true)}
                         onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
                         coverflowEffect={{
                             rotate: 0,
