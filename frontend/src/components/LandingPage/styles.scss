@@ -264,15 +264,19 @@
 .carousel-wrapper {
     width: 100%;
     overflow: visible;
+    visibility: visible;
     opacity: 1;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease, visibility 0s;
 
     &.loading {
+        visibility: hidden;
         opacity: 0;
         min-height: 360px;
+        transition: opacity 0s, visibility 0s;
     }
 
     &.ready {
+        visibility: visible;
         opacity: 1;
     }
 }
