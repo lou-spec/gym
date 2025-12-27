@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
-import { Save, Edit, X, Camera, Trash2, Eye, EyeOff, Link, UserCheck, UserX, AlertCircle } from "lucide-react";
+import { Save, Edit, X, Camera, Trash2, Eye, EyeOff, Link, UserCheck, UserX, AlertCircle, Check } from "lucide-react";
 import Qrcode from "../../../QrcodeCreate";
 import { buildApiUrl } from "../../../../utils/api";
 
@@ -101,7 +101,11 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
             });
             const data = await response.json();
             if (response.ok) {
-                toast.success('Associado ao Personal Trainer com sucesso!');
+                toast.success('Associado ao Personal Trainer com sucesso!', {
+                    style: { background: '#ffffff', color: '#dc2626' },
+                    progressClassName: 'toast-progress-red',
+                    icon: <Check size={20} color="#ffffff" />
+                });
                 setInviteCodeInput('');
                 if (onUpdate) onUpdate();
                 loadTrainerInfo();
@@ -131,7 +135,11 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
             });
 
             if (response.ok) {
-                toast.success('Pedido enviado ao administrador!');
+                toast.success('Pedido enviado ao administrador!', {
+                    style: { background: '#ffffff', color: '#dc2626' },
+                    progressClassName: 'toast-progress-red',
+                    icon: <Check size={20} color="#ffffff" />
+                });
                 setHasPendingRequest(true);
                 setShowDisassociationModal(false);
                 setDisassociationReason('');
@@ -264,7 +272,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
-                    icon: ({ theme, type }) => <Save size={20} style={{ color: '#dc2626' }} />,
+                    icon: <Save size={20} color="#ffffff" />,
                     style: {
                         background: '#ffffff',
                         color: '#dc2626',
@@ -345,7 +353,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
-                    icon: ({ theme, type }) => <Camera size={20} style={{ color: '#dc2626' }} />,
+                    icon: <Camera size={20} color="#ffffff" />,
                     style: {
                         background: '#ffffff',
                         color: '#dc2626',
@@ -387,7 +395,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
-                    icon: ({ theme, type }) => <Trash2 size={20} style={{ color: '#dc2626' }} />,
+                    icon: <Trash2 size={20} color="#ffffff" />,
                     style: {
                         background: '#ffffff',
                         color: '#dc2626',
@@ -476,7 +484,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
-                    icon: ({ theme, type }) => <Save size={20} style={{ color: '#dc2626' }} />,
+                    icon: <Save size={20} color="#ffffff" />,
                     style: {
                         background: '#ffffff',
                         color: '#dc2626',
