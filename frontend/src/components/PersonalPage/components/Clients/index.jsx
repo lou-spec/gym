@@ -73,7 +73,11 @@ export const Clients = () => {
       });
       const data = await response.json();
       setInviteCode(data.inviteCode);
-      toast.success('Código gerado com sucesso!');
+      toast.success('Código gerado com sucesso!', {
+        style: { background: '#ffffff', color: '#dc2626' },
+        progressClassName: 'toast-progress-red',
+        icon: <RefreshCw size={20} color="#ffffff" />
+      });
     } catch (error) {
       console.error('Error generating invite code:', error);
       toast.error('Erro ao gerar código');
@@ -84,7 +88,11 @@ export const Clients = () => {
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(inviteCode);
-    toast.success('Código copiado!');
+    toast.success('Código copiado!', {
+      style: { background: '#ffffff', color: '#dc2626' },
+      progressClassName: 'toast-progress-red',
+      icon: <Copy size={20} color="#ffffff" />
+    });
   };
 
   useEffect(() => {
@@ -117,7 +125,7 @@ export const Clients = () => {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
-        icon: ({ theme, type }) => <Check size={20} style={{ color: '#dc2626' }} />,
+        icon: <Check size={20} color="#ffffff" />,
         style: {
           background: '#ffffff',
           color: '#dc2626',
@@ -129,7 +137,7 @@ export const Clients = () => {
       toggleModal();
     } catch (err) {
       console.error("Error adding client:", err);
-      // Check if error is about duplicate email
+
       if (err.message && (err.message.includes("email") || err.message.includes("registado"))) {
         setError("email", {
           type: "manual",
