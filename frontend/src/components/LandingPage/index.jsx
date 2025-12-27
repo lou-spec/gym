@@ -91,7 +91,7 @@ const LandingPage = () => {
                             initialSlide={2}
                             loop={true}
                             autoplay={{
-                                delay: 5000,
+                                delay: 3000,
                                 disableOnInteraction: false,
                             }}
                             onSwiper={(swiper) => {
