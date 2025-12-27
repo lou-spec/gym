@@ -942,7 +942,7 @@ export const WorkoutPlanner = () => {
 
 
 
-      {isLoading && <div className={styles.loading}>Carregando...</div>}
+      {isLoading && <div className={styles.loading}>A carregar...</div>}
 
 
       {selectedClient && weeklyFrequency && (

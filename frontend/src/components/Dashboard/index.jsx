@@ -100,7 +100,7 @@ export const Dashboard = ({ clientId, isTrainer, trainerId }) => {
         <div className={styles.selectionSection}>
           <div className={styles.sectionHeader}>
             <h3 className={styles.sectionTitle}>Selecione o Cliente</h3>
-          
+
             <div className={styles.searchWrapper}>
               <input
                 type="text"
@@ -143,7 +143,7 @@ export const Dashboard = ({ clientId, isTrainer, trainerId }) => {
         </div>
       )}
 
-      {isLoadingStats && <div className={styles.loading}>Carregando estatísticas...</div>}
+      {isLoadingStats && <div className={styles.loading}>A carregar estatísticas...</div>}
 
       {!isLoadingStats && selectedClient && (
         <div className={styles.statsContainer}>

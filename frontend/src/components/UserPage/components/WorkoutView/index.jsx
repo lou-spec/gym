@@ -218,7 +218,7 @@ export const WorkoutView = () => {
   if (isLoading) {
     return (
       <Container>
-        <div className={styles.loading}>Carregando treino...</div>
+        <div className={styles.loading}>A carregar treino...</div>
       </Container>
     );
   }

@@ -446,17 +446,17 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
 
               <div
                 className={styles.messagesArea}
-                ref={messagesContainerRef} // Remove ref from end div, or keep it but scroll container
+                ref={messagesContainerRef}
               >
                 {isLoading ? (
-                  <div className={styles.loading}>Carregando mensagens...</div>
+                  <div className={styles.loading}>A carregar mensagens...</div>
                 ) : messages.length === 0 ? (
                   <div className={styles.emptyMessages}>
                     Nenhuma mensagem ainda. Comece a conversar!
                   </div>
                 ) : (
                   messages.map((msg, index) => {
-                    // ... existing map logic
+
                     if (!msg || (!msg.sender && !msg.senderId)) return null;
                     const senderId = msg.sender?._id?.toString() || msg.sender?.toString();
                     const myId = currentUserId?.toString();
@@ -467,7 +467,7 @@ export const Chat = ({ currentUserId, currentUserName, isTrainer, targetUserId, 
                         key={msg._id || index}
                         className={`${styles.message} ${isSentByMe ? styles.sent : styles.received}`}
                       >
-                        {/* ... message content ... */}
+
                         <div className={styles.messageContent}>
                           {msg.isAlert && <span className={styles.alertBadge}>⚠ Alerta</span>}
 
