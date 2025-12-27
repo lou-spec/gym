@@ -265,6 +265,19 @@
     width: 100%;
     overflow: visible;
     min-height: 360px;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+
+    &.loading {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    &.ready {
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 .stats-section {

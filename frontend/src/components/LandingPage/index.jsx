@@ -72,8 +72,8 @@ const LandingPage = () => {
                     </div>
                 </div>
 
-                <div className="carousel-wrapper">
-                    {imagesLoaded ? (
+                <div className={`carousel-wrapper ${swiperReady ? 'ready' : 'loading'}`}>
+                    {imagesLoaded && (
                         <Swiper
                             effect={'coverflow'}
                             grabCursor={true}
@@ -87,6 +87,7 @@ const LandingPage = () => {
                             }}
                             onSwiper={(swiper) => {
                                 setSwiperInstance(swiper);
+                                setTimeout(() => setSwiperReady(true), 5000);
                             }}
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
                             coverflowEffect={{
@@ -220,8 +221,6 @@ const LandingPage = () => {
                                 </div>
                             </SwiperSlide>
                         </Swiper>
-                    ) : (
-                        <div style={{ minHeight: '360px' }}></div>
                     )}
                     {imagesLoaded && (
                         <div className="swiper-custom-pagination">
