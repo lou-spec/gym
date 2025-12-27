@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
@@ -10,11 +10,39 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import './styles.scss';
 
+const slideImages = [
+    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop"
+];
+
 const LandingPage = () => {
     const { isDarkMode } = useTheme();
     const [activeIndex, setActiveIndex] = useState(2);
     const [swiperInstance, setSwiperInstance] = useState(null);
     const [swiperReady, setSwiperReady] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
+
+    useEffect(() => {
+        let loaded = 0;
+        const total = slideImages.length;
+
+        slideImages.forEach(src => {
+            const img = new Image();
+            img.onload = img.onerror = () => {
+                loaded++;
+                if (loaded >= total) {
+                    setImagesLoaded(true);
+                }
+            };
+            img.src = src;
+        });
+
+        const fallbackTimer = setTimeout(() => setImagesLoaded(true), 2000);
+        return () => clearTimeout(fallbackTimer);
+    }, []);
 
     return (
         <div className={`landing-page ${isDarkMode ? 'dark-mode' : ''}`}>
@@ -44,7 +72,7 @@ const LandingPage = () => {
                     </div>
                 </div>
 
-                <div className={`carousel-wrapper ${swiperReady ? 'ready' : 'loading'}`}>
+                <div className={`carousel-wrapper ${(imagesLoaded && swiperReady) ? 'ready' : 'loading'}`}>
                     <Swiper
                         effect={'coverflow'}
                         grabCursor={true}
