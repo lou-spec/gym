@@ -17,26 +17,33 @@ const Header = () => {
 
   useEffect(() => {
 
-    const checkAuth = () => {
-      const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-      if (token) {
-        setIsAuthenticated(true);
-        try {
-          const jwtPayload = token.split('=')[1].split('.')[1];
-          const decodedPayload = JSON.parse(atob(jwtPayload));
-          const scopes = decodedPayload.scope || [];
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(buildApiUrl('/api/auth/me'), {
+          headers: { 'Accept': 'application/json' },
+          credentials: 'include',
+        });
 
-          if (scopes.includes('admin')) setUserRole('admin');
-          else if (scopes.includes('trainer')) setUserRole('trainer');
-          else if (scopes.includes('user')) setUserRole('user');
-          else setUserRole(null);
+        if (response.ok) {
+          const data = await response.json();
+          if (data.auth && data.decoded) {
+            setIsAuthenticated(true);
+            const scopes = data.decoded.scope || data.decoded || [];
 
-        } catch (e) {
-          console.error("Error decoding token:", e);
+            if (scopes.includes('admin')) setUserRole('admin');
+            else if (scopes.includes('trainer')) setUserRole('trainer');
+            else if (scopes.includes('user')) setUserRole('user');
+            else setUserRole(null);
+          } else {
+            setIsAuthenticated(false);
+            setUserRole(null);
+          }
+        } else {
           setIsAuthenticated(false);
           setUserRole(null);
         }
-      } else {
+      } catch (e) {
+        console.error("Error checking auth:", e);
         setIsAuthenticated(false);
         setUserRole(null);
       }
@@ -112,7 +119,7 @@ const Header = () => {
       </nav>
 
       <div className={styles.rightSection}>
-  
+
         <button
           className={styles.themeToggle}
           onClick={toggleTheme}
