@@ -68,8 +68,10 @@ function ChatAPI(io) {
       let imageUrl = null;
 
       if (req.file) {
-        // Construct absolute URL or relative path handled by static middleware
-        imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+        const protocol = req.protocol;
+        const host = req.get('host');
+        const baseUrl = process.env.BACKEND_URL || `${protocol}://${host}`;
+        imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
       }
 
       if (!message && !imageUrl) {

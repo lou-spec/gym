@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import io from "socket.io-client";
 import { Container, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
@@ -9,6 +8,7 @@ import { toast } from "react-toastify";
 import { showSwalConfirm, showSwalSuccess, showSwalError } from "../../../../utils/swalTheme";
 import { Edit, Trash2, ArrowUp, ArrowDown, User, Dumbbell, ChevronLeft, ChevronRight } from "lucide-react";
 import { buildApiUrl } from "../../../../utils/api";
+import { socketAddListener, socketRemoveListener, initSocket } from "../../../../socket/socket";
 
 const Users = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
@@ -33,16 +33,18 @@ const Users = () => {
 
   // Socket.IO Listener for Real-time Updates
   useEffect(() => {
-    const socket = io();
+    initSocket();
 
-    socket.on('admin_notifications', (notification) => {
+    const handleNotification = (notification) => {
       if (notification.key === 'User') {
-        load(); // Refresh data
+        load();
       }
-    });
+    };
+
+    socketAddListener('admin_notifications', handleNotification);
 
     return () => {
-      socket.disconnect();
+      socketRemoveListener('admin_notifications', handleNotification);
     };
   }, [load]);
 
