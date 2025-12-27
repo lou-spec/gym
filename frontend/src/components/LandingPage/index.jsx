@@ -100,7 +100,7 @@ const LandingPage = () => {
                                     swiper.update();
                                     swiper.slideToLoop(2, 0);
                                     setSwiperReady(true);
-                                }, 100);
+                                }, 300);
                             }}
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
                             coverflowEffect={{
