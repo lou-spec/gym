@@ -40,7 +40,7 @@ const LandingPage = () => {
             img.src = src;
         });
 
-        const fallbackTimer = setTimeout(() => setImagesLoaded(true), 2000);
+        const fallbackTimer = setTimeout(() => setImagesLoaded(true), 5000);
         return () => clearTimeout(fallbackTimer);
     }, []);
 
