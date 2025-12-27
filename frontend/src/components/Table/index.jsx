@@ -1,8 +1,8 @@
 import React from "react";
 import _ from "lodash";
 import styles from "./styles.module.scss";
+import { assetsBaseUrl } from "../../utils/api";
 
-// Função auxiliar para formatar valores por tipo de coluna
 const formatValue = (column, value) => {
   if (!value) return "";
 
@@ -14,7 +14,7 @@ const formatValue = (column, value) => {
   }
 
   if (column.toLowerCase() === "image") {
-    const src = value.startsWith("http") ? value : `http://localhost:3000/uploads/${value}`;
+    const src = value.startsWith("http") ? value : `${assetsBaseUrl}/uploads/${value}`;
     return <img src={src} alt="Img" className={styles.image} />;
   }
 
