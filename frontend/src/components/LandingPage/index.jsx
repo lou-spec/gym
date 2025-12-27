@@ -87,7 +87,7 @@ const LandingPage = () => {
                             }}
                             onSwiper={(swiper) => {
                                 setSwiperInstance(swiper);
-                                setTimeout(() => setSwiperReady(true), 5000);
+                                setTimeout(() => setSwiperReady(true), 3000);
                             }}
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
                             coverflowEffect={{
