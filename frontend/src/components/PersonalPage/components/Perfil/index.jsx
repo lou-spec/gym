@@ -375,8 +375,10 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                 setFormErrors([]);
                 setShowPasswordModal(false);
 
-                setTimeout(() => {
-                    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                setTimeout(async () => {
+                    try {
+                        await fetch(buildApiUrl('/api/auth/logout'), { credentials: 'include' });
+                    } catch (e) { }
                     window.location.href = '/';
                 }, 2000);
             } else {

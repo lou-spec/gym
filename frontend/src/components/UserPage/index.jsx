@@ -23,6 +23,7 @@ import {
 import { toast } from "react-toastify";
 import { User, Dumbbell, LayoutDashboard, MessageCircle, LogOut } from "lucide-react";
 import { showSwalSuccess } from "../../utils/swalTheme";
+import { buildApiUrl } from "../../utils/api";
 
 const UserPage = () => {
   const [activePage, setActivePage] = useState("1");
@@ -107,13 +108,20 @@ const UserPage = () => {
       title: "Logout",
       icon: <LogOut size={18} />,
       onClick: async () => {
-        document.cookie = "token=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT";
+        try {
+          await fetch(buildApiUrl('/api/auth/logout'), {
+            credentials: 'include',
+          });
+        } catch (e) {
+          console.error('Logout error:', e);
+        }
         await showSwalSuccess({
           title: 'Logout com sucesso!',
           text: 'Até à próxima!',
           timer: 1500,
           showConfirmButton: false
         });
+        window.dispatchEvent(new Event('auth-change'));
         window.location.href = "/";
       }
     }
