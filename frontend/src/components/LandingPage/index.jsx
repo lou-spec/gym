@@ -72,163 +72,168 @@ const LandingPage = () => {
                     </div>
                 </div>
 
-                <div className={`carousel-wrapper ${(imagesLoaded && swiperReady) ? 'ready' : 'loading'}`}>
-                    <Swiper
-                        effect={'coverflow'}
-                        grabCursor={true}
-                        centeredSlides={true}
-                        slidesPerView={3}
-                        initialSlide={2}
-                        loop={true}
-                        autoplay={{
-                            delay: 3000,
-                            disableOnInteraction: false,
-                        }}
-                        onSwiper={(swiper) => {
-                            setSwiperInstance(swiper);
-                            setTimeout(() => setSwiperReady(true), 2000);
-                        }}
-                        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
-                        coverflowEffect={{
-                            rotate: 0,
-                            stretch: 0,
-                            depth: 150,
-                            modifier: 2,
-                            slideShadows: false,
-                        }}
-                        modules={[EffectCoverflow, Autoplay]}
-                        className="swiper-dark"
-                    >
+                <div className="carousel-wrapper">
+                    {imagesLoaded ? (
+                        <Swiper
+                            effect={'coverflow'}
+                            grabCursor={true}
+                            centeredSlides={true}
+                            slidesPerView={3}
+                            initialSlide={2}
+                            loop={true}
+                            autoplay={{
+                                delay: 3000,
+                                disableOnInteraction: false,
+                            }}
+                            onSwiper={(swiper) => {
+                                setSwiperInstance(swiper);
+                            }}
+                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex % 5)}
+                            coverflowEffect={{
+                                rotate: 0,
+                                stretch: 0,
+                                depth: 150,
+                                modifier: 2,
+                                slideShadows: false,
+                            }}
+                            modules={[EffectCoverflow, Autoplay]}
+                            className="swiper-dark"
+                        >
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" alt="Musculação" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>MUSCULAÇÃO SMART</h2>
-                                    <p>Equipamento de elite conectado ao teu plano digital.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" alt="Musculação" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>MUSCULAÇÃO SMART</h2>
+                                        <p>Equipamento de elite conectado ao teu plano digital.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Cardio" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>ZONA CARDIO</h2>
-                                    <p>Monitorização em tempo real do teu desempenho.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Cardio" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>ZONA CARDIO</h2>
+                                        <p>Monitorização em tempo real do teu desempenho.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop" alt="Cross Training" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>CROSS TRAINING</h2>
-                                    <p>Supera limites com o apoio da nossa comunidade.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop" alt="Cross Training" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>CROSS TRAINING</h2>
+                                        <p>Supera limites com o apoio da nossa comunidade.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Personal Trainer" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>Gestão de Personal Trainers</h2>
-                                    <p>O teu treinador.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Personal Trainer" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>Gestão de Personal Trainers</h2>
+                                        <p>O teu treinador.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
 
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop" alt="Spinning" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>ESTÚDIO CYCLING</h2>
-                                    <p>Imersão total com som, luzes e instrutores de topo.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop" alt="Spinning" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>ESTÚDIO CYCLING</h2>
+                                        <p>Imersão total com som, luzes e instrutores de topo.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" alt="Musculação" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>MUSCULAÇÃO SMART</h2>
-                                    <p>Equipamento de elite conectado ao teu plano digital.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" alt="Musculação" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>MUSCULAÇÃO SMART</h2>
+                                        <p>Equipamento de elite conectado ao teu plano digital.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Cardio" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>ZONA CARDIO</h2>
-                                    <p>Monitorização em tempo real do teu desempenho.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?q=80&w=2069&auto=format&fit=crop" alt="Cardio" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>ZONA CARDIO</h2>
+                                        <p>Monitorização em tempo real do teu desempenho.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop" alt="Cross Training" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>CROSS TRAINING</h2>
-                                    <p>Supera limites com o apoio da nossa comunidade.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?q=80&w=2070&auto=format&fit=crop" alt="Cross Training" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>CROSS TRAINING</h2>
+                                        <p>Supera limites com o apoio da nossa comunidade.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Personal Trainer" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>Gestão de Personal Trainers</h2>
-                                    <p>O teu treinador.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Personal Trainer" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>Gestão de Personal Trainers</h2>
+                                        <p>O teu treinador.</p>
 
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
+                            </SwiperSlide>
 
-                        <SwiperSlide>
-                            <div className="slide-card-dark">
-                                <img src="https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop" alt="Spinning" />
-                                <div className="slide-overlay-dark"></div>
-                                <div className="slide-content-dark">
-                                    <h2>ESTÚDIO CYCLING</h2>
-                                    <p>Imersão total com som, luzes e instrutores de topo.</p>
+                            <SwiperSlide>
+                                <div className="slide-card-dark">
+                                    <img src="https://images.unsplash.com/photo-1540496905036-5937c10647cc?q=80&w=2070&auto=format&fit=crop" alt="Spinning" />
+                                    <div className="slide-overlay-dark"></div>
+                                    <div className="slide-content-dark">
+                                        <h2>ESTÚDIO CYCLING</h2>
+                                        <p>Imersão total com som, luzes e instrutores de topo.</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
-                    </Swiper>
-                    <div className="swiper-custom-pagination">
-                        {[0, 1, 2, 3, 4].map((index) => (
-                            <span
-                                key={index}
-                                className={`swiper-pagination-bullet ${activeIndex === index ? 'swiper-pagination-bullet-active' : ''}`}
-                                onClick={() => swiperInstance?.slideToLoop(index)}
-                            ></span>
-                        ))}
-                    </div>
+                            </SwiperSlide>
+                        </Swiper>
+                    ) : (
+                        <div style={{ minHeight: '360px' }}></div>
+                    )}
+                    {imagesLoaded && (
+                        <div className="swiper-custom-pagination">
+                            {[0, 1, 2, 3, 4].map((index) => (
+                                <span
+                                    key={index}
+                                    className={`swiper-pagination-bullet ${activeIndex === index ? 'swiper-pagination-bullet-active' : ''}`}
+                                    onClick={() => swiperInstance?.slideToLoop(index)}
+                                ></span>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 
