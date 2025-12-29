@@ -601,7 +601,7 @@ export const WorkoutPlanner = () => {
     }
 
     const sessionsToSave = Object.entries(sessions).filter(([day, session]) => {
-      return session.exercises && session.exercises.length > 0;
+      return session.exercises && session.exercises.length > 0 && !session._id;
     });
 
     if (sessionsToSave.length === 0) {
@@ -1058,28 +1058,7 @@ export const WorkoutPlanner = () => {
             </table>
 
             {Object.keys(sessions).length > 0 && (
-              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-                <button
-                  className={styles.btnSaveAll}
-                  onClick={saveAllSessions}
-                  style={{
-                    background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
-                    color: 'white',
-                    border: 'none',
-                    padding: '12px 30px',
-                    borderRadius: '8px',
-                    fontSize: '1rem',
-                    fontWeight: '600',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)'
-                  }}
-                >
-                  <Save size={20} />
-                  Guardar Todos os Treinos
-                </button>
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', marginBottom: '20px' }}>
               </div>
             )}
           </div>
@@ -1621,6 +1600,33 @@ export const WorkoutPlanner = () => {
         </div>
       )}
 
+      {selectedClient && Object.keys(sessions).length > 0 && (
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', marginBottom: '30px' }}>
+          <button
+            onClick={saveAllSessions}
+            style={{
+              background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
+              color: 'white',
+              border: 'none',
+              padding: '15px 40px',
+              borderRadius: '10px',
+              fontSize: '1.1rem',
+              fontWeight: '700',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              boxShadow: '0 6px 20px rgba(220, 38, 38, 0.4)',
+              transition: 'transform 0.2s, box-shadow 0.2s'
+            }}
+            onMouseOver={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 25px rgba(220, 38, 38, 0.5)'; }}
+            onMouseOut={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = '0 6px 20px rgba(220, 38, 38, 0.4)'; }}
+          >
+            <Save size={22} />
+            Guardar Todos os Treinos
+          </button>
+        </div>
+      )}
 
     </Container>
   );
