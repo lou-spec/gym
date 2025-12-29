@@ -601,7 +601,7 @@ export const WorkoutPlanner = () => {
     }
 
     const sessionsToSave = Object.entries(sessions).filter(([day, session]) => {
-      return session.exercises && session.exercises.length > 0 && !session._id;
+      return session.exercises && session.exercises.length > 0;
     });
 
     if (sessionsToSave.length === 0) {
@@ -1541,6 +1541,17 @@ export const WorkoutPlanner = () => {
             <p>Gerencie o seu plano atual:</p>
           </div>
 
+          <button
+            onClick={saveAllSessions}
+            className={styles.btnSaveSession}
+            style={{
+              background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
+              marginBottom: '15px'
+            }}
+          >
+            <Save size={18} style={{ marginRight: '8px' }} />
+            Guardar Todos os Treinos
+          </button>
 
           <button
             className={styles.btnSaveSession}
@@ -1600,33 +1611,6 @@ export const WorkoutPlanner = () => {
         </div>
       )}
 
-      {selectedClient && Object.keys(sessions).length > 0 && (
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px', marginBottom: '30px' }}>
-          <button
-            onClick={saveAllSessions}
-            style={{
-              background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
-              color: 'white',
-              border: 'none',
-              padding: '15px 40px',
-              borderRadius: '10px',
-              fontSize: '1.1rem',
-              fontWeight: '700',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '10px',
-              boxShadow: '0 6px 20px rgba(220, 38, 38, 0.4)',
-              transition: 'transform 0.2s, box-shadow 0.2s'
-            }}
-            onMouseOver={(e) => { e.target.style.transform = 'translateY(-2px)'; e.target.style.boxShadow = '0 8px 25px rgba(220, 38, 38, 0.5)'; }}
-            onMouseOut={(e) => { e.target.style.transform = 'translateY(0)'; e.target.style.boxShadow = '0 6px 20px rgba(220, 38, 38, 0.4)'; }}
-          >
-            <Save size={22} />
-            Guardar Todos os Treinos
-          </button>
-        </div>
-      )}
 
     </Container>
   );
