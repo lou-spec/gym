@@ -1,8 +1,8 @@
-// Custom SweetAlert2 theme configuration
+
 import Swal from 'sweetalert2';
 
 export const getSwalTheme = () => {
-    // Forcing white theme as requested ("inspirate nestes" referring to Personal Page)
+    
     return {
         background: '#ffffff',
         color: '#1f2937',

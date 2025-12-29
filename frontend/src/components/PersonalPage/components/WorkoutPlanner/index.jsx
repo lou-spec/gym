@@ -594,6 +594,64 @@ export const WorkoutPlanner = () => {
     }
   };
 
+  const saveAllSessions = async () => {
+    if (!workoutPlan) {
+      toast.error('Crie um plano primeiro');
+      return;
+    }
+
+    const sessionsToSave = Object.entries(sessions).filter(([day, session]) => {
+      return session.exercises && session.exercises.length > 0;
+    });
+
+    if (sessionsToSave.length === 0) {
+      toast.error('Não há treinos para guardar');
+      return;
+    }
+
+    let savedCount = 0;
+    let errorCount = 0;
+
+    for (const [dayOfWeek, session] of sessionsToSave) {
+      try {
+        const response = await fetch(buildApiUrl('/api/workouts/sessions'), {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            workoutPlanId: workoutPlan._id,
+            dayOfWeek,
+            startTime: session.startTime,
+            endTime: session.endTime,
+            exercises: session.exercises
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          savedCount++;
+          setSessions(prev => ({ ...prev, [dayOfWeek]: data.session }));
+        } else {
+          errorCount++;
+        }
+      } catch (error) {
+        console.error(`Error saving session for ${dayOfWeek}:`, error);
+        errorCount++;
+      }
+    }
+
+    if (savedCount > 0 && errorCount === 0) {
+      toast.success(`${savedCount} treino(s) guardado(s) com sucesso!`);
+    } else if (savedCount > 0 && errorCount > 0) {
+      toast.warning(`${savedCount} guardado(s), ${errorCount} erro(s)`);
+    } else {
+      toast.error('Erro ao guardar treinos');
+    }
+
+    setEditingDay(null);
+    setExercises([]);
+  };
+
   const deleteSession = async (day) => {
     const session = sessions[day];
     if (!session) return;
@@ -998,6 +1056,32 @@ export const WorkoutPlanner = () => {
                 ))}
               </tbody>
             </table>
+
+            {Object.keys(sessions).length > 0 && (
+              <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+                <button
+                  className={styles.btnSaveAll}
+                  onClick={saveAllSessions}
+                  style={{
+                    background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
+                    color: 'white',
+                    border: 'none',
+                    padding: '12px 30px',
+                    borderRadius: '8px',
+                    fontSize: '1rem',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    boxShadow: '0 4px 12px rgba(220, 38, 38, 0.3)'
+                  }}
+                >
+                  <Save size={20} />
+                  Guardar Todos os Treinos
+                </button>
+              </div>
+            )}
           </div>
 
 
