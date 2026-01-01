@@ -39,10 +39,12 @@ function QrcodeRead({ setDataLogin }) {
                 const error = await response.json();
                 console.log("Login erro:", error);
                 setStatus("Erro: " + (error.message || "Login falhou"));
+                alert("Erro Backend: " + (error.message || "Login falhou"));
             }
         } catch (err) {
             console.error("QR Login error:", err);
             setStatus("Erro de conexão");
+            alert("Erro de conexão: " + err.message);
         }
     };
 
@@ -58,7 +60,10 @@ function QrcodeRead({ setDataLogin }) {
                         if (rawValue && rawValue.startsWith("QRLOGIN:")) {
                             const userId = rawValue.replace("QRLOGIN:", "");
                             console.log("UserId:", userId);
+                            alert("QR LIDO! userId: " + userId); // Debug ATIVO
                             handleQRLogin(userId);
+                        } else {
+                            alert("QR Inválido: " + rawValue);
                         }
                     }
                 }}
