@@ -3,8 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/ProtectRoute/hooks/useAuth";
 
 export const useRedirectIfAuthenticated = () => {
-    const { isValidLogin, isFetching, user } = useAuth();
+    const { isValidLogin, isFetching, user, hasLogin } = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        hasLogin();
+    }, []);
 
     useEffect(() => {
         if (!isFetching && isValidLogin && user) {
