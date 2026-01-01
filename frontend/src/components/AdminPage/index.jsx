@@ -38,11 +38,7 @@ const AdminPage = () => {
         try {
           await fetch(buildApiUrl('/api/auth/logout'), {
             method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Cache-Control': 'no-cache',
-              'Pragma': 'no-cache'
-            }
+            credentials: 'include'
           });
         } catch (e) {
           console.error('Logout error:', e);
