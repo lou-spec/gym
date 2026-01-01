@@ -6,8 +6,7 @@ function Qrcode({ user = { name: "", password: "" } }) {
     const [value, setValue] = useState("");
 
     useEffect(() => {
-
-        const newWord = encodeURI(`${user.name}&&${user.password}`);
+        const newWord = `${user.name}&&${user.password}`;
         setValue(newWord);
     }, [user]);
 

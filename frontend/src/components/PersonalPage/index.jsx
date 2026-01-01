@@ -135,7 +135,12 @@ const PersonalPage = () => {
       onClick: async () => {
         try {
           await fetch(buildApiUrl('/api/auth/logout'), {
+            method: 'POST',
             credentials: 'include',
+            headers: {
+              'Cache-Control': 'no-cache',
+              'Pragma': 'no-cache'
+            }
           });
         } catch (e) {
           console.error('Logout error:', e);
@@ -147,7 +152,7 @@ const PersonalPage = () => {
           showConfirmButton: false
         });
         window.dispatchEvent(new Event('auth-change'));
-        window.location.href = "/";
+        window.location.replace("/");
       }
     }
   ];
