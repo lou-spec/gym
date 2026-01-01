@@ -333,14 +333,14 @@ function AuthRouter() {
   /**
    * @swagger
    * /auth/logout:
-   *   get:
+   *   post:
    *     summary: Logout user
    *     tags: [Auth]
    *     responses:
    *       200:
    *         description: Logout successful
    */
-  router.route("/logout").get(function (req, res, next) {
+  router.route("/logout").post(function (req, res, next) {
     res.cookie("token", req.cookies.token, { httpOnly: true, maxAge: 0 });
     res.status(200);
     res.send({ logout: true });
