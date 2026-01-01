@@ -68,7 +68,7 @@ function QrcodeRead({ setDataLogin }) {
                 constraints={{
                     facingMode: facingMode,
                 }}
-                scanDelay={100}
+                scanDelay={50}
             />
             <button onClick={toggleCamera} className={styles.cameraToggle}>
                 Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})
