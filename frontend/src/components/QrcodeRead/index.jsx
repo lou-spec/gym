@@ -1,21 +1,33 @@
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import styles from "./styles.module.scss";
 
 function QrcodeRead({ setDataLogin }) {
     const [data, setData] = useState(null);
     const [facingMode, setFacingMode] = useState("user");
+    const [scannerReady, setScannerReady] = useState(false);
 
     const toggleCamera = () => {
         setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
     };
 
+    useEffect(() => {
+        console.log('QrcodeRead montado, a iniciar scanner...');
+        return () => {
+            console.log('QrcodeRead desmontado');
+        };
+    }, []);
+
     return (
         <div className={styles.qrCodeReader}>
             <Scanner
                 onScan={(results) => {
-                    if (!results || results.length === 0) return;
+                    console.log('onScan chamado, results:', results);
+                    if (!results || results.length === 0) {
+                        console.log('Sem resultados');
+                        return;
+                    }
 
                     const scanned = results[0];
                     const rawValue = scanned.rawValue;
@@ -47,6 +59,9 @@ function QrcodeRead({ setDataLogin }) {
                 }}
                 onError={(error) => {
                     console.error('Erro no scanner:', error);
+                }}
+                onResult={(result) => {
+                    console.log('onResult chamado:', result);
                 }}
                 constraints={{
                     facingMode,
