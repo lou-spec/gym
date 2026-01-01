@@ -48,13 +48,27 @@ function QrcodeRead({ setDataLogin }) {
                 onError={(error) => {
                     console.error('Erro no scanner:', error);
                 }}
-                constraints={{ facingMode }}
-                scanDelay={300}
+                constraints={{
+                    facingMode,
+                    aspectRatio: 1,
+                }}
+                scanDelay={500}
+                components={{
+                    audio: false,
+                    onOff: false,
+                    torch: false,
+                    zoom: false,
+                    finder: true,
+                }}
+                styles={{
+                    container: { width: '100%', maxWidth: '400px' }
+                }}
             />
             <button onClick={toggleCamera} className={styles.cameraToggle}>
                 Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})
             </button>
-            {data && <p>Utilizador: {data.name}</p>}
+            {data && <p style={{ color: '#22c55e', fontWeight: 'bold' }}>✓ Utilizador: {data.name}</p>}
+            {!data && <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>Aponta a câmera para o QR code</p>}
         </div>
     );
 };

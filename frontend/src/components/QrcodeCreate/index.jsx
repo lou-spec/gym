@@ -13,10 +13,10 @@ function Qrcode({ user = { name: "", password: "" } }) {
     return (
         <div className={styles.qrCodeCreate}>
             <QRCode
-                size={128}
-                style={{ height: "auto", maxWidth: "150px", width: "150px" }}
+                size={256}
+                style={{ height: "auto", maxWidth: "250px", width: "250px" }}
                 value={value}
-                viewBox={'0 0 128 128'}
+                viewBox={'0 0 256 256'}
             />
         </div>
     );
