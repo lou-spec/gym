@@ -43,13 +43,19 @@ function QrcodeRead({ setDataLogin }) {
         <div className={styles.qrCodeReader}>
             <Scanner
                 onScan={(results) => {
+                    console.log("Scanner onScan chamado");
+                    console.log("Results:", results);
                     if (results && results.length > 0) {
                         const result = results[0];
                         const rawValue = result.rawValue;
+                        console.log("Raw value lido:", rawValue);
 
                         if (rawValue && rawValue.startsWith("QRLOGIN:")) {
                             const userId = rawValue.replace("QRLOGIN:", "");
+                            console.log("UserId extraído:", userId);
                             handleQRLogin(userId);
+                        } else {
+                            console.log("QR code não é do formato esperado");
                         }
                     }
                 }}
