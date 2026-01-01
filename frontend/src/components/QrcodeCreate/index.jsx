@@ -14,7 +14,6 @@ function Qrcode({ user = { name: "", password: "" } }) {
         <div className={styles.qrCodeCreate}>
             <QRCode
                 size={256}
-                style={{ height: "auto", maxWidth: "250px", width: "250px" }}
                 value={value}
                 viewBox={'0 0 256 256'}
             />
