@@ -65,7 +65,7 @@ function QrcodeRead({ setDataLogin }) {
                 onError={(error) => {
                     console.log("Scanner error:", error);
                 }}
-                scanDelay={500}
+                scanDelay={100}
             />
             <button onClick={toggleCamera} className={styles.cameraToggle}>
                 Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})

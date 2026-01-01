@@ -451,7 +451,10 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                                     )}
                                 </div>
 
-
+                                <div className={styles.qrSection}>
+                                    <p className={styles.qrLabel}>QR Code Login</p>
+                                    <Qrcode user={user} />
+                                </div>
                             </div>
                         </div>
 

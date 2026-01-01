@@ -25,7 +25,6 @@ import { toast } from "react-toastify";
 import { User, Users, ClipboardList, LayoutDashboard, MessageCircle, LogOut } from "lucide-react";
 import { showSwalSuccess } from "../../utils/swalTheme";
 import { buildApiUrl } from "../../utils/api";
-import Qrcode from "./components/Perfil/../../../QrcodeCreate";
 
 const PersonalPage = () => {
   const [activePage, setActivePage] = useState("1");
@@ -216,11 +215,6 @@ const PersonalPage = () => {
           })}
         </TabContent>
       </Row>
-
-      <div style={{ marginTop: '30px', padding: '30px', background: '#1a1a1a', borderRadius: '12px', textAlign: 'center' }}>
-        <p style={{ color: '#dc2626', marginBottom: '15px', fontWeight: '600', fontSize: '18px' }}>QR Code Login (TESTE)</p>
-        <Qrcode user={user.data} />
-      </div>
     </Container>
   );
 };
