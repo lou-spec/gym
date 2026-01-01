@@ -4,6 +4,10 @@ import { vi } from "vitest";
 import ForgotPassword from "../../../components/ForgotPassword";
 import { MemoryRouter } from "react-router-dom";
 
+vi.mock("../../../hooks/useRedirectIfAuthenticated", () => ({
+    useRedirectIfAuthenticated: () => ({ isFetching: false }),
+}));
+
 const mockNavigate = vi.fn();
 
 vi.mock("react-router-dom", async () => {

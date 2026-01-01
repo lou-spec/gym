@@ -4,6 +4,10 @@ import { vi } from "vitest";
 import RegisterPage from "../../../components/RegisterPage";
 import { MemoryRouter } from "react-router-dom";
 
+vi.mock("../../../hooks/useRedirectIfAuthenticated", () => ({
+    useRedirectIfAuthenticated: () => ({ isFetching: false }),
+}));
+
 vi.mock("../../../components/RegisterForm", () => ({
     default: () => <div data-testid="register-form-mock">Register Form</div>,
 }));

@@ -179,6 +179,67 @@ function AuthRouter() {
       });
   });
 
+  /**
+   * @swagger
+   * /auth/login-qr:
+   *   post:
+   *     summary: Login via QR Code
+   *     description: Authenticates a user using their user ID from a QR code scan. Returns a JWT token in a cookie.
+   *     tags: [Auth]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - userId
+   *             properties:
+   *               userId:
+   *                 type: string
+   *                 description: The MongoDB ObjectId of the user
+   *                 example: "694deefea683fab73553f57d"
+   *     responses:
+   *       200:
+   *         description: Login successful
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 auth:
+   *                   type: boolean
+   *                   example: true
+   *                 token:
+   *                   type: string
+   *                   description: JWT token
+   *       400:
+   *         description: User ID is required
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 auth:
+   *                   type: boolean
+   *                   example: false
+   *                 message:
+   *                   type: string
+   *                   example: "ID do utilizador é obrigatório"
+   *       401:
+   *         description: User not found or login failed
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 auth:
+   *                   type: boolean
+   *                   example: false
+   *                 message:
+   *                   type: string
+   *                   example: "Utilizador não encontrado"
+   */
   router.route("/login-qr").post(async function (req, res) {
     try {
       const { userId } = req.body;
@@ -207,7 +268,11 @@ function AuthRouter() {
       res.status(200).send(response);
     } catch (err) {
       console.error('QR Login error:', err);
-      res.status(401).send({ auth: false, message: 'Login QR falhou' });
+      if (err === 'User not found' || err.message === 'User not found') {
+        res.status(401).send({ auth: false, message: 'Utilizador não encontrado' });
+      } else {
+        res.status(401).send({ auth: false, message: 'Login QR falhou' });
+      }
     }
   });
 

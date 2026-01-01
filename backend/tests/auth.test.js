@@ -224,10 +224,40 @@ describe('Auth Tests - Complete Coverage', () => {
         });
     });
 
-    describe('GET /api/auth/logout', () => {
+    describe('POST /api/auth/login-qr', () => {
+        it('should login successfully with valid userId', async () => {
+            const res = await request(app)
+                .post('/api/auth/login-qr')
+                .send({ userId: userId.toString() });
+
+            expect(res.statusCode).toEqual(200);
+            expect(res.body.auth).toBe(true);
+            expect(res.body).toHaveProperty('token');
+        });
+
+        it('should fail with missing userId', async () => {
+            const res = await request(app)
+                .post('/api/auth/login-qr')
+                .send({});
+
+            expect(res.statusCode).toEqual(400);
+            expect(res.body.message).toContain('ID do utilizador');
+        });
+
+        it('should fail with invalid userId', async () => {
+            const res = await request(app)
+                .post('/api/auth/login-qr')
+                .send({ userId: '000000000000000000000000' });
+
+            expect(res.statusCode).toEqual(401);
+            expect(res.body.message).toContain('Utilizador não encontrado');
+        });
+    });
+
+    describe('POST /api/auth/logout', () => {
         it('should logout successfully', async () => {
             const res = await request(app)
-                .get('/api/auth/logout')
+                .post('/api/auth/logout')
                 .set('Cookie', `token=${userToken}`);
 
             expect(res.statusCode).toEqual(200);

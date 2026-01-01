@@ -4,6 +4,10 @@ import { vi } from "vitest";
 import LoginPage from "../../../components/LoginPage";
 import { MemoryRouter } from "react-router-dom";
 
+vi.mock("../../../hooks/useRedirectIfAuthenticated", () => ({
+    useRedirectIfAuthenticated: () => ({ isFetching: false }),
+}));
+
 vi.mock("../../../components/LoginForm", () => ({
     default: ({ role }) => <div data-testid="login-form-mock">Login Form - Role: {role}</div>,
 }));
