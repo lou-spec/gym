@@ -15,17 +15,21 @@ function QrcodeRead({ setDataLogin }) {
         <div className={styles.qrCodeReader}>
             <Scanner
                 onScan={(results) => {
+                    console.log("Scanner onScan chamado, results:", results);
                     if (results && results.length > 0) {
                         const result = results[0];
                         const rawValue = result.rawValue;
+                        console.log("Raw value lido:", rawValue);
 
                         if (rawValue) {
                             const newResult = rawValue.split("&&");
+                            console.log("Split result:", newResult);
                             const loginData = {
                                 name: decodeURI(newResult[0]),
                                 password: decodeURI(newResult[1]),
                                 isQrCode: true,
                             };
+                            console.log("Login data:", loginData.name);
                             setData(loginData);
                             setDataLogin(loginData);
                         }

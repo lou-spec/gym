@@ -7,6 +7,8 @@ function Qrcode({ user = { name: "", password: "" } }) {
 
     useEffect(() => {
         const newWord = encodeURI(`${user.name}&&${user.password}`);
+        console.log("QR Code gerado com valor:", newWord);
+        console.log("User data:", user.name, user.password ? "[password exists]" : "[no password]");
         setValue(newWord);
     }, [user]);
 
