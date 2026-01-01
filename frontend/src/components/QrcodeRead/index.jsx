@@ -76,7 +76,7 @@ function QrcodeRead({ setDataLogin }) {
                     finder: true,
                 }}
                 styles={{
-                    container: { width: '100%', maxWidth: '400px' }
+                    container: { width: '100%', maxWidth: '300px' }
                 }}
             />
             <button onClick={toggleCamera} className={styles.cameraToggle}>
