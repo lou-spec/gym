@@ -5,6 +5,11 @@ import styles from "./styles.module.scss";
 
 function QrcodeRead({ setDataLogin }) {
     const [data, setData] = useState("no Result");
+    const [facingMode, setFacingMode] = useState("user");
+
+    const toggleCamera = () => {
+        setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
+    };
 
     return (
         <div className={styles.qrCodeReader}>
@@ -25,10 +30,13 @@ function QrcodeRead({ setDataLogin }) {
                     setData(data);
                     setDataLogin(data);
                 }}
-                onError={(error) => {}}
-                constraints={{ facingMode: "user" }}
+                onError={(error) => { }}
+                constraints={{ facingMode }}
                 scanDelay={300}
             />
+            <button onClick={toggleCamera} className={styles.cameraToggle}>
+                Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})
+            </button>
             <p>{data.name}</p>
         </div>
     );

@@ -5,7 +5,11 @@ import styles from "../LoginPage/styles.module.scss";
 import { useRedirectIfAuthenticated } from "../../hooks/useRedirectIfAuthenticated";
 
 const RegisterPage = () => {
-    useRedirectIfAuthenticated();
+    const { isFetching } = useRedirectIfAuthenticated();
+
+    if (isFetching) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <Container className={styles.homePage}>

@@ -5,3 +5,25 @@
   align-items: center;
   gap: 12px;
 }
+
+.cameraToggle {
+  padding: 8px 16px;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #b91c1c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
