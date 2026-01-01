@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import styles from "./styles.module.scss";
 
-function Qrcode({ user = { name: "", password: "" } }) {
+function Qrcode({ user = { _id: "", name: "" } }) {
     const [value, setValue] = useState("");
 
     useEffect(() => {
-        const newWord = encodeURI(`${user.name}&&${user.password}`);
-        console.log("QR Code gerado com valor:", newWord);
-        console.log("User data:", user.name, user.password ? "[password exists]" : "[no password]");
-        setValue(newWord);
+        if (user._id) {
+            const qrData = `QRLOGIN:${user._id}`;
+            setValue(qrData);
+        }
     }, [user]);
 
     return (

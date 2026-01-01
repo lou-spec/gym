@@ -165,7 +165,7 @@ function AuthRouter() {
         };
 
         if (rememberMe) {
-          cookieOptions.maxAge = 30 * 24 * 60 * 60 * 1000; // 30 dias
+          cookieOptions.maxAge = 30 * 24 * 60 * 60 * 1000;
         }
 
         res.cookie("token", response.token, cookieOptions);
@@ -177,6 +177,38 @@ function AuthRouter() {
         res.status(401);
         res.send({ auth: false, message: typeof err === 'string' ? err : "Login failed" });
       });
+  });
+
+  router.route("/login-qr").post(async function (req, res) {
+    try {
+      const { userId } = req.body;
+
+      if (!userId) {
+        return res.status(400).send({ auth: false, message: 'ID do utilizador é obrigatório' });
+      }
+
+      const user = await Users.findUserById(userId);
+
+      if (!user) {
+        return res.status(401).send({ auth: false, message: 'Utilizador não encontrado' });
+      }
+
+      const response = Users.createToken(user);
+
+      const isProduction = process.env.NODE_ENV === 'production';
+      const cookieOptions = {
+        httpOnly: true,
+        secure: isProduction,
+        sameSite: isProduction ? 'none' : 'lax',
+        path: '/',
+      };
+
+      res.cookie("token", response.token, cookieOptions);
+      res.status(200).send(response);
+    } catch (err) {
+      console.error('QR Login error:', err);
+      res.status(401).send({ auth: false, message: 'Login QR falhou' });
+    }
   });
 
   /**
