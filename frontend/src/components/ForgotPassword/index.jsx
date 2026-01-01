@@ -7,16 +7,12 @@ import { useRedirectIfAuthenticated } from "../../hooks/useRedirectIfAuthenticat
 
 
 const ForgotPassword = () => {
-  const { isFetching: isCheckingAuth } = useRedirectIfAuthenticated();
+  useRedirectIfAuthenticated();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
-  if (isCheckingAuth) {
-    return <div>Loading...</div>;
-  }
 
   const validateEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
