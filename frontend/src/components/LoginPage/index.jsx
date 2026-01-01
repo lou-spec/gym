@@ -3,10 +3,16 @@ import { Row, Col, Container } from "reactstrap";
 import LoginForm from "../LoginForm";
 import QrRead from "../QrcodeRead";
 import styles from "./styles.module.scss";
+import { useRedirectIfAuthenticated } from "../../hooks/useRedirectIfAuthenticated";
 
 const HomePage = () => {
+  const { isFetching } = useRedirectIfAuthenticated();
   const [showQRCode, setQrCode] = useState(false);
   const [dataQrCode, setDataQrCode] = useState({});
+
+  if (isFetching) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container className={`${styles.homePage} ${showQRCode ? styles.showQR : ''}`}>

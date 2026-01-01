@@ -2,8 +2,15 @@ import React from "react";
 import { Row, Col, Container } from "reactstrap";
 import RegisterForm from "../RegisterForm";
 import styles from "../LoginPage/styles.module.scss";
+import { useRedirectIfAuthenticated } from "../../hooks/useRedirectIfAuthenticated";
 
 const RegisterPage = () => {
+    const { isFetching } = useRedirectIfAuthenticated();
+
+    if (isFetching) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <Container className={styles.homePage}>
             <Row className={`${styles.row} align-items-center`}>

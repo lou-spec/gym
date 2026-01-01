@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { EffectCoverflow, Pagination, Autoplay } from 'swiper/modules';
 import { Dumbbell, Users, Clock, Target } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeProvider/ThemeProvider';
+import { useAuth } from '../ProtectRoute/hooks/useAuth';
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
@@ -20,10 +21,15 @@ const slideImages = [
 
 const LandingPage = () => {
     const { isDarkMode } = useTheme();
+    const { isValidLogin, hasLogin } = useAuth();
     const [activeIndex, setActiveIndex] = useState(2);
     const [swiperInstance, setSwiperInstance] = useState(null);
     const [swiperReady, setSwiperReady] = useState(false);
     const [imagesLoaded, setImagesLoaded] = useState(false);
+
+    useEffect(() => {
+        hasLogin();
+    }, []);
 
     useEffect(() => {
         let loaded = 0;
@@ -60,15 +66,17 @@ const LandingPage = () => {
                             TREINA. EVOLUI. DOMINA.
                         </p>
 
-                        <Link
-                            to="/login"
-                            className="cta-button slide-up"
-                        >
-                            Acessar
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </Link>
+                        {!isValidLogin && (
+                            <Link
+                                to="/login"
+                                className="cta-button slide-up"
+                            >
+                                Acessar
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </Link>
+                        )}
                     </div>
                 </div>
 
