@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 
 function QrcodeRead({ setDataLogin }) {
     const [data, setData] = useState("No result");
-    const [facingMode, setFacingMode] = useState("user");
+    const [facingMode, setFacingMode] = useState("environment");
 
     const toggleCamera = () => {
         setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
@@ -15,17 +15,24 @@ function QrcodeRead({ setDataLogin }) {
         <div className={styles.qrCodeReader}>
             <Scanner
                 onScan={(results) => {
-                    const result = results[0];
-                    const newResult = result.rawValue.split("&&");
-                    const data = {
-                        name: newResult[0],
-                        password: newResult[1],
-                        isQrCode: true,
-                    };
-                    setData(data);
-                    setDataLogin(data);
+                    if (results && results.length > 0) {
+                        const result = results[0];
+                        const rawValue = result.rawValue;
+
+                        if (rawValue) {
+                            const newResult = rawValue.split("&&");
+                            const loginData = {
+                                name: decodeURI(newResult[0]),
+                                password: decodeURI(newResult[1]),
+                                isQrCode: true,
+                            };
+                            setData(loginData);
+                            setDataLogin(loginData);
+                        }
+                    }
                 }}
-                onError={(error) => console.log(error?.message)}
+                onError={(error) => console.log("Scanner error:", error?.message)}
+                formats={["qr_code"]}
                 constraints={{
                     facingMode: facingMode,
                 }}
@@ -34,7 +41,7 @@ function QrcodeRead({ setDataLogin }) {
             <button onClick={toggleCamera} className={styles.cameraToggle}>
                 Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})
             </button>
-            <p>{data.name}</p>
+            <p>{typeof data === 'object' ? data.name : data}</p>
         </div>
     );
 };
