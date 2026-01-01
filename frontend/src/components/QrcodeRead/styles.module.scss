@@ -1,5 +1,6 @@
 .qrCodeReader {
-  width: 200px;
+  width: 100%;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
