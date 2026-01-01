@@ -1,89 +1,40 @@
 import _ from "lodash";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import styles from "./styles.module.scss";
 
 function QrcodeRead({ setDataLogin }) {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState("No result");
     const [facingMode, setFacingMode] = useState("user");
-    const [scannerReady, setScannerReady] = useState(false);
 
     const toggleCamera = () => {
         setFacingMode(prevMode => prevMode === "user" ? "environment" : "user");
     };
 
-    useEffect(() => {
-        console.log('QrcodeRead montado, a iniciar scanner...');
-        return () => {
-            console.log('QrcodeRead desmontado');
-        };
-    }, []);
-
     return (
         <div className={styles.qrCodeReader}>
             <Scanner
                 onScan={(results) => {
-                    console.log('onScan chamado, results:', results);
-                    if (!results || results.length === 0) {
-                        console.log('Sem resultados');
-                        return;
-                    }
-
-                    const scanned = results[0];
-                    const rawValue = scanned.rawValue;
-
-                    console.log('QR Code lido:', rawValue);
-
-                    if (!rawValue.includes('&&')) {
-                        console.error('QR Code inválido: não contém &&');
-                        return;
-                    }
-
-                    const newResult = rawValue.split("&&");
-
-                    if (newResult.length !== 2) {
-                        console.error('QR Code inválido: formato incorreto');
-                        return;
-                    }
-
-                    const loginData = {
+                    const result = results[0];
+                    const newResult = result.rawValue.split("&&");
+                    const data = {
                         name: newResult[0],
                         password: newResult[1],
                         isQrCode: true,
                     };
-
-                    console.log('Dados de login extraídos:', { name: loginData.name, hasPassword: !!loginData.password });
-
-                    setData(loginData);
-                    setDataLogin(loginData);
+                    setData(data);
+                    setDataLogin(data);
                 }}
-                onError={(error) => {
-                    console.error('Erro no scanner:', error);
-                }}
-                onResult={(result) => {
-                    console.log('onResult chamado:', result);
-                }}
+                onError={(error) => console.log(error?.message)}
                 constraints={{
-                    facingMode,
-                    aspectRatio: 1,
+                    facingMode: facingMode,
                 }}
-                scanDelay={500}
-                components={{
-                    audio: false,
-                    onOff: false,
-                    torch: false,
-                    zoom: false,
-                    finder: true,
-                }}
-                styles={{
-                    container: { width: '100%', maxWidth: '300px' }
-                }}
+                scanDelay={300}
             />
             <button onClick={toggleCamera} className={styles.cameraToggle}>
                 Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})
             </button>
-            {data && <p style={{ color: '#22c55e', fontWeight: 'bold' }}>✓ Utilizador: {data.name}</p>}
-            {!data && <p style={{ color: '#6b7280', fontSize: '0.9rem' }}>Aponta a câmera para o QR code</p>}
+            <p>{data.name}</p>
         </div>
     );
 };
