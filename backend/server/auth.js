@@ -341,10 +341,17 @@ function AuthRouter() {
    *         description: Logout successful
    */
   router.route("/logout").post(function (req, res, next) {
-    res.cookie("token", req.cookies.token, { httpOnly: true, maxAge: 0 });
+    const isProduction = process.env.NODE_ENV === 'production';
+    const cookieOptions = {
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: isProduction ? 'none' : 'lax',
+      path: '/',
+    };
+
+    res.clearCookie("token", cookieOptions);
     res.status(200);
     res.send({ logout: true });
-    next();
   });
 
   router.route("/me").get(VerifyToken, function (req, res, next) {
