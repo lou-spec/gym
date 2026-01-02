@@ -22,7 +22,7 @@
   }
 }
 
-/* 1. Dimming Overlay (The "Hole") */
+/* 1. Frame + Dimmer (On Top) */
 .scannerWrapper::before {
   content: '';
   position: absolute;
@@ -32,33 +32,56 @@
   width: 65%;
   height: 65%;
   border-radius: 20px;
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+
   /* Dimming outside */
-  pointer-events: none;
-  z-index: 10;
-}
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
 
-/* 2. Red Viewfinder: Thin Solid Corners + Thin Dashed Connectors */
-.scannerWrapper::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
-  height: 65%;
-  pointer-events: none;
-  z-index: 11;
-
-  /* SVG: Thin Stroke (2px), 4 Solid Corners + Dashed connecting lines */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3C!-- Solid Corners (Thinner) --%3E%3Cpath d='M20 5 H12 A7 7 0 0 0 5 12 V20' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3Cpath d='M80 5 H88 A7 7 0 0 1 95 12 V20' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3Cpath d='M95 80 V88 A7 7 0 0 1 88 95 H80' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3Cpath d='M5 80 V88 A7 7 0 0 1 12 95 H20' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3C!-- Dashed Connectors (Thinner & Straight) --%3E%3Cpath d='M28 5 H72' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3Cpath d='M95 28 V72' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3Cpath d='M72 95 H28' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3Cpath d='M5 72 V28' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3C/svg%3E");
+  /* SVG Viewfinder: Corrected Bottom-Left Corner */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3C!-- Solid Corners --%3E%3Cpath d='M20 5 H12 A7 7 0 0 0 5 12 V20' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3Cpath d='M80 5 H88 A7 7 0 0 1 95 12 V20' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3Cpath d='M95 80 V88 A7 7 0 0 1 88 95 H80' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3Cpath d='M5 80 V88 A7 7 0 0 0 12 95 H20' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='round' /%3E%3C!-- Dashed Connectors --%3E%3Cpath d='M28 5 H72' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3Cpath d='M95 28 V72' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3Cpath d='M72 95 H28' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3Cpath d='M5 72 V28' stroke='%23dc2626' stroke-width='2.5' stroke-linecap='butt' stroke-dasharray='5 5' /%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 
-  border: none;
-  mask: none;
-  -webkit-mask: none;
+  pointer-events: none;
+  z-index: 20;
+  /* Above the scan line */
+}
+
+/* 2. Scan Line Animation (Under Frame) */
+.scannerWrapper::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  width: 60%;
+  /* Slightly narrower than frame */
+  height: 2px;
+  background: #dc2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.8);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: scan 2.5s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 15;
+}
+
+@keyframes scan {
+  0% {
+    top: 20%;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 80%;
+    opacity: 0;
+  }
 }
 
 .statusText {
@@ -87,7 +110,7 @@
   cursor: pointer;
   margin-top: 10px;
   transition: all 0.3s ease;
-  z-index: 20;
+  z-index: 30;
 
   &:hover {
     background-color: #b91c1c;
