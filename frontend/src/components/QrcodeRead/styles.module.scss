@@ -31,14 +31,15 @@
   transform: translate(-50%, -50%);
   width: 65%;
   height: 65%;
-  border-radius: 24px;
+  border-radius: 18px;
+  /* Slightly tighter radius to match detailed svg */
   box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
   /* Dimming outside */
   pointer-events: none;
   z-index: 10;
 }
 
-/* 2. Red Viewfinder Corners (The Brackets) - SVG Background */
+/* 2. Red Viewfinder: Solid Corners + Dashed Connectors */
 .scannerWrapper::after {
   content: '';
   position: absolute;
@@ -50,8 +51,8 @@
   pointer-events: none;
   z-index: 11;
 
-  /* Robust SVG Background for the 4 corners */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3Cpath d='M30 5 H15 C 10 5 5 10 5 15 V 30' stroke='%23dc2626' stroke-width='5' stroke-linecap='round' /%3E%3Cpath d='M70 5 H85 C 90 5 95 10 95 15 V 30' stroke='%23dc2626' stroke-width='5' stroke-linecap='round' /%3E%3Cpath d='M95 70 V 85 C 95 90 90 95 85 95 H 70' stroke='%23dc2626' stroke-width='5' stroke-linecap='round' /%3E%3Cpath d='M5 70 V 85 C 5 90 10 95 15 95 H 30' stroke='%23dc2626' stroke-width='5' stroke-linecap='round' /%3E%3C/svg%3E");
+  /* SVG: 4 Solid Corners + Dashed connecting lines */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='none'%3E%3C!-- Solid Corners --%3E%3Cpath d='M25 5 H12 A7 7 0 0 0 5 12 V25' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' /%3E%3Cpath d='M75 5 H88 A7 7 0 0 1 95 12 V25' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' /%3E%3Cpath d='M95 75 V88 A7 7 0 0 1 88 95 H75' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' /%3E%3Cpath d='M5 75 V88 A7 7 0 0 1 12 95 H25' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' /%3E%3C!-- Dashed Connectors --%3E%3Cpath d='M32 5 H68' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' stroke-dasharray='6 8' /%3E%3Cpath d='M95 32 V68' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' stroke-dasharray='6 8' /%3E%3Cpath d='M68 95 H32' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' stroke-dasharray='6 8' /%3E%3Cpath d='M5 68 V32' stroke='%23dc2626' stroke-width='4' stroke-linecap='round' stroke-dasharray='6 8' /%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
