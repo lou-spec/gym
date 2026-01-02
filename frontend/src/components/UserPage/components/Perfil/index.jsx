@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import styles from "./styles.module.scss";
 import { toast } from "react-toastify";
 import { Save, Edit, X, Camera, Trash2, Eye, EyeOff, Link, UserCheck, UserX, AlertCircle, Check } from "lucide-react";
-import Qrcode from "../../../QrcodeCreate";
+
 import { buildApiUrl } from "../../../../utils/api";
 
 export const Perfil = ({ user = { name: "" }, onUpdate }) => {
@@ -577,10 +577,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                                     )}
                                 </div>
 
-                                <div className={styles.qrSection}>
-                                    <p className={styles.qrLabel}>QR Code Login</p>
-                                    <Qrcode user={user} />
-                                </div>
+
                             </div>
                         </div>
 

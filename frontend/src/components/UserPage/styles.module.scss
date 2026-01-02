@@ -6,6 +6,7 @@
     padding: 0 !important;
     margin: 0 !important;
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     background-color: var(--bg-primary);
     font-family: 'Poppins', sans-serif;
