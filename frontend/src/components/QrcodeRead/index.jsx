@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import styles from "./styles.module.scss";
 import { buildApiUrl } from "../../utils/api";
+import { Camera, CameraOff, RefreshCw } from "lucide-react";
 
 function QrcodeRead({ setDataLogin }) {
-    const [status, setStatus] = useState("A aguardar QR code...");
+    const [status, setStatus] = useState("Aponte a câmara para o QR Code");
     const [facingMode, setFacingMode] = useState("environment");
+    const [statusType, setStatusType] = useState("normal"); // normal, success, error
 
     useEffect(() => {
     }, []);
@@ -16,7 +18,8 @@ function QrcodeRead({ setDataLogin }) {
 
     const handleQRLogin = async (userId) => {
         try {
-            setStatus("A fazer login...");
+            setStatus("A iniciar sessão...");
+            setStatusType("normal");
 
             const response = await fetch(buildApiUrl('/api/auth/login-qr'), {
                 method: 'POST',
@@ -27,44 +30,64 @@ function QrcodeRead({ setDataLogin }) {
 
             if (response.ok) {
                 const data = await response.json();
-                setStatus("Login com sucesso!");
+                setStatus("Sessão iniciada com sucesso!");
+                setStatusType("success");
                 setDataLogin({ success: true, userId });
                 window.dispatchEvent(new Event('auth-change'));
                 window.location.href = '/';
             } else {
                 const error = await response.json();
-                setStatus("Erro: " + (error.message || "Login falhou"));
+                setStatus("Falha na autenticação: " + (error.message || "Tente novamente"));
+                setStatusType("error");
             }
         } catch (err) {
             setStatus("Erro de conexão");
+            setStatusType("error");
         }
     };
 
     return (
-        <div className={styles.qrCodeReader}>
-            <Scanner
-                onScan={(results) => {
-                    if (results && results.length > 0) {
-                        const rawValue = results[0].rawValue;
+        <div className={styles.qrCodeContainer}>
+            <div className={styles.scannerWrapper}>
+                <Scanner
+                    onScan={(results) => {
+                        if (results && results.length > 0) {
+                            const rawValue = results[0].rawValue;
 
-                        if (rawValue && rawValue.startsWith("QRLOGIN:")) {
-                            const userId = rawValue.replace("QRLOGIN:", "");
-                            handleQRLogin(userId);
+                            if (rawValue && rawValue.startsWith("QRLOGIN:")) {
+                                const userId = rawValue.replace("QRLOGIN:", "");
+                                handleQRLogin(userId);
+                            }
                         }
-                    }
-                }}
-                onError={(error) => {
-                }}
-                constraints={{
-                    facingMode: facingMode,
-                }}
+                    }}
+                    onError={(error) => {
+                    }}
+                    constraints={{
+                        facingMode: facingMode,
+                    }}
+                    scanDelay={500}
+                    components={{
+                        audio: false,
+                        onOff: false,
+                        torch: false,
+                        zoom: false,
+                        finder: false
+                    }}
+                    styles={{
+                        container: { width: '100%', height: '100%' },
+                        video: { width: '100%', height: '100%', objectFit: 'cover' }
+                    }}
+                />
+            </div>
 
-                scanDelay={100}
-            />
+            <p className={`${styles.statusText} ${styles[statusType]}`}>
+                {status}
+            </p>
+
             <button onClick={toggleCamera} className={styles.cameraToggle}>
-                Trocar Câmera ({facingMode === "user" ? "Frontal" : "Traseira"})
+                <RefreshCw />
+                Trocar Câmara ({facingMode === "user" ? "Frontal" : "Traseira"})
             </button>
-            <p>{status}</p>
         </div>
     );
 };

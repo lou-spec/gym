@@ -578,7 +578,27 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                                     )}
                                 </div>
 
-
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    margin: '1.5rem auto 0',
+                                    backgroundColor: '#ffffff',
+                                    padding: '1rem',
+                                    borderRadius: '16px',
+                                    width: '100%',
+                                    maxWidth: '200px',
+                                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                }}>
+                                    <h3 style={{
+                                        color: '#dc2626',
+                                        marginBottom: '0.5rem',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        textAlign: 'center'
+                                    }}>Entrar com QR Code</h3>
+                                    <Qrcode user={user} size={150} />
+                                </div>
                             </div>
                         </div>
 
@@ -891,20 +911,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                     )}
                 </div>
 
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    margin: '2rem 0',
-                    backgroundColor: '#ffffff',
-                    padding: '2rem',
-                    borderRadius: '16px',
-                    width: 'fit-content',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
-                }}>
-                    <h3 style={{ color: '#dc2626', marginBottom: '1rem' }}>QR Code Login</h3>
-                    <Qrcode user={user} />
-                </div>
+
             </Container>
 
 
@@ -951,6 +958,8 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                                         {isSubmittingRequest ? 'A enviar...' : 'Enviar Pedido'}
                                     </button>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
