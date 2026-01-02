@@ -30,6 +30,8 @@
   .table {
     width: 100%;
     border-collapse: collapse;
+    white-space: nowrap;
+    /* Prevent wrapping */
 
     thead {
       background: linear-gradient(135deg, #dc2626, #991b1b);
@@ -55,8 +57,6 @@
           background-color: var(--table-hover);
         }
 
-
-
         td {
           padding: 12px;
           text-align: center;
@@ -72,6 +72,43 @@
         padding: 1rem;
         color: var(--text-primary);
         text-align: center;
+      }
+    }
+  }
+
+  /* Scrollbar styling for better UX */
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+  }
+
+  @media (max-width: 768px) {
+    overflow-x: auto;
+    /* Enable horizontal scroll */
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scroll on iOS */
+
+    .table {
+      font-size: 0.85rem;
+      /* Smaller font */
+
+      thead tr th,
+      tbody tr td {
+        padding: 10px 8px;
+        /* Compact padding */
       }
     }
   }

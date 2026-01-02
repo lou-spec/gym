@@ -190,6 +190,23 @@
     font-size: 1.25rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+
+    .weekLabel {
+      font-size: 1.1rem;
+      order: -1;
+      /* Puts label on top if desired, or keep as is. Let's keep specific order if needed, but default column works */
+    }
+
+    button {
+      width: 100%;
+    }
   }
 }
 
