@@ -583,21 +583,27 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                                     flexDirection: 'column',
                                     alignItems: 'center',
                                     margin: '1.5rem auto 0',
-                                    backgroundColor: '#ffffff',
-                                    padding: '1rem',
-                                    borderRadius: '16px',
                                     width: '100%',
-                                    maxWidth: '200px',
-                                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                    maxWidth: '200px'
                                 }}>
                                     <h3 style={{
-                                        color: '#dc2626',
+                                        color: '#ffffff',
                                         marginBottom: '0.5rem',
                                         fontSize: '1rem',
                                         fontWeight: '600',
                                         textAlign: 'center'
                                     }}>Entrar com QR Code</h3>
-                                    <Qrcode user={user} size={150} />
+                                    <div style={{
+                                        backgroundColor: '#ffffff',
+                                        padding: '1rem',
+                                        borderRadius: '16px',
+                                        width: '100%',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                    }}>
+                                        <Qrcode user={user} size={150} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

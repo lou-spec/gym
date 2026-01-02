@@ -80,7 +80,7 @@ function QrcodeRead({ setDataLogin }) {
                 />
             </div>
 
-            <p className={`${styles.statusText} ${styles[statusType]}`}>
+            <p className={styles.statusText}>
                 {status}
             </p>
 
