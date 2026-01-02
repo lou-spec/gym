@@ -823,10 +823,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                 </div>
 
 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '2rem 0' }}>
-                    <h3 style={{ color: '#dc2626', marginBottom: '1rem' }}>QR Code Login</h3>
-                    <Qrcode user={user} />
-                </div>
+
 
                 <div className={styles.trainerSection}>
                     <h3><UserCheck size={20} /> Personal Trainer</h3>
@@ -892,6 +889,21 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                             )}
                         </div>
                     )}
+                </div>
+
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    margin: '2rem 0',
+                    backgroundColor: '#ffffff',
+                    padding: '2rem',
+                    borderRadius: '16px',
+                    width: 'fit-content',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+                }}>
+                    <h3 style={{ color: '#dc2626', marginBottom: '1rem' }}>QR Code Login</h3>
+                    <Qrcode user={user} />
                 </div>
             </Container>
 
