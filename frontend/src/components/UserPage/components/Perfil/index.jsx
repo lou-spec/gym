@@ -602,7 +602,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                                         justifyContent: 'center',
                                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
                                     }}>
-                                        <Qrcode user={user} size={150} />
+                                        <Qrcode user={user} />
                                     </div>
                                 </div>
                             </div>
