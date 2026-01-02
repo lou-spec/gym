@@ -23,7 +23,7 @@ let UserSchema = new Schema({
   address: { type: String, required: false },
   country: { type: String, required: false },
   profileImage: { type: String, required: false },
-  memberId: { type: mongoose.Schema.Types.ObjectId, required: false, ref: "Member" },
+
   resetPasswordToken: { type: String, required: false },
   resetPasswordExpiry: { type: Date, required: false },
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },

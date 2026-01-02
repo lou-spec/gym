@@ -10,9 +10,14 @@ const options = {
         },
         servers: [
             {
+                url: 'https://gym-pwa-three.vercel.app/api',
+                description: 'Production server',
+            },
+            {
                 url: 'http://localhost:3000/api',
                 description: 'Local server',
             },
+
         ],
         components: {
             securitySchemes: {
