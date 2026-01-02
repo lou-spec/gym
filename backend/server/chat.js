@@ -4,7 +4,7 @@ const validateToken = require('../middleware/token');
 const multer = require('multer');
 const path = require('path');
 
-// Configuração do Multer
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  limits: { fileSize: 10 * 1024 * 1024 }, 
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
@@ -31,7 +31,7 @@ function ChatAPI(io) {
   const api = express.Router();
   api.use(validateToken);
 
-  // Enviar mensagem (suporta imagem)
+
   /**
    * @swagger
    * /chat/messages:
@@ -83,7 +83,7 @@ function ChatAPI(io) {
         receiver: receiverId,
         message: message || '',
         image: imageUrl,
-        isAlert: isAlert === 'true' || isAlert === true || false, // FormData converts booleans to strings
+        isAlert: isAlert === 'true' || isAlert === true || false,
         relatedWorkout: relatedWorkout || null
       });
 
@@ -111,7 +111,7 @@ function ChatAPI(io) {
     }
   });
 
-  // Obter conversas entre dois usuários
+
   /**
    * @swagger
    * /chat/messages/{userId}:
@@ -150,7 +150,7 @@ function ChatAPI(io) {
     }
   });
 
-  // Marcar mensagens como lidas
+
   api.put('/messages/mark-read/:userId', async (req, res) => {
     try {
       const currentUserId = req.userId;
@@ -168,12 +168,12 @@ function ChatAPI(io) {
     }
   });
 
-  // Obter contatos (pessoas com quem tem conversas)
+
   api.get('/contacts', async (req, res) => {
     try {
       const userId = req.userId;
 
-      // Buscar todas as mensagens onde o usuário participa
+
       const messages = await ChatMessage.find({
         $or: [{ sender: userId }, { receiver: userId }]
       })
@@ -181,7 +181,7 @@ function ChatAPI(io) {
         .populate('receiver', 'name email role')
         .sort({ createdAt: -1 });
 
-      // Extrair usuários únicos
+ 
       const contactsMap = new Map();
 
       messages.forEach(msg => {
@@ -203,7 +203,7 @@ function ChatAPI(io) {
         }
       });
 
-      // Contar mensagens não lidas
+  
       for (const [contactId, contact] of contactsMap) {
         const unreadCount = await ChatMessage.countDocuments({
           sender: contactId,
@@ -215,20 +215,18 @@ function ChatAPI(io) {
 
       const contacts = Array.from(contactsMap.values());
 
-      // Se for Treinador, adicionar também todos os seus clientes, mesmo sem mensagens
-      // Precisamos importar o Model de Users
+
       const { Users } = require('../data/users');
-      // Ou usar o serviço se acessível, mas aqui estamos diretos no route handler
-      // Vamos tentar importar o Model do Mongoose diretamente se possível ou usar o data layer
+
 
       try {
         const User = require('../data/users/users');
 
-        // Obter dados do utilizador atual para saber se é Treinador ou Cliente
+  
         const currentUser = await User.findById(userId);
 
         if (currentUser) {
-          // Lógica para Treinador: buscar seus clientes
+     
           if (currentUser.role.name === 'Trainer' || currentUser.role.scope.includes('trainer')) {
             console.log('Chat debug - fetching clients for trainer:', userId);
             const myClients = await User.find({ createdBy: userId });
@@ -249,7 +247,7 @@ function ChatAPI(io) {
               }
             });
           }
-          // Lógica para Cliente: buscar seu Treinador
+      
           else if (currentUser.createdBy) {
             console.log('Chat debug - fetching trainer for client:', userId);
             const myTrainer = await User.findById(currentUser.createdBy);

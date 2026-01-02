@@ -95,7 +95,7 @@ function UserService(UserModel) {
 
   function findUser({ name, password, isQrCode }) {
     return new Promise(function (resolve, reject) {
-      // Procura por name OU email
+  
       UserModel.findOne({
         $or: [
           { name: name },
@@ -137,7 +137,7 @@ function UserService(UserModel) {
         resolve(users);
       });
     }).then(async (users) => {
-      const totalPlayers = await UserModel.countDocuments(query); // Count relevant to query
+      const totalPlayers = await UserModel.countDocuments(query);
       return Promise.resolve({
         data: users,
         pagination: {

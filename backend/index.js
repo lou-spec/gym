@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 const router = require("./router");
 const Users = require("./data/users");
 
-// Detect Render and use its assigned PORT. Bind to 0.0.0.0 on Render.
+
 const isRender = "RENDER" in process.env;
 const hostname = isRender ? "0.0.0.0" : "127.0.0.1";
 const port = process.env.PORT || 3000;
@@ -72,11 +72,10 @@ mongoose
   .catch((err) => console.error(err));
 
 const app = express();
-// Trust Render/Vercel proxies so secure cookies work behind HTTPS
+
 app.set('trust proxy', 1);
 const server = http.Server(app);
 
-// Allowed origins for CORS in both HTTP and Socket.IO
 const customFrontendUrl = process.env.FRONTEND_URL || "";
 const allowedOrigins = [
   customFrontendUrl || "https://gym-pwa-three.vercel.app",
@@ -92,20 +91,20 @@ const io = socketIo(server, {
 });
 
 
-// HTTP CORS with allowlist. Accept requests without origin (e.g., curl).
+
 const normalizeOrigin = (origin) => (origin || "").replace(/\/$/, "");
 const isAllowedOrigin = (origin) => {
   const o = normalizeOrigin(origin);
   return o && allowedOrigins.map(normalizeOrigin).includes(o);
 };
 
-// Use a delegate to avoid throwing 500 on disallowed origins
+
 const corsOptionsDelegate = function (req, callback) {
   const originHeader = req.header('Origin');
   const allow = !originHeader || isAllowedOrigin(originHeader);
   const options = allow
     ? {
-      origin: true, // reflect the request origin
+      origin: true, 
       credentials: true,
       methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
       allowedHeaders: ['Content-Type', 'Authorization'],

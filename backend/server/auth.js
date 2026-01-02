@@ -8,9 +8,9 @@ const crypto = require('crypto');
 const bcrypt = require('bcrypt');
 const config = require("../config");
 
-// Configurar transportador do nodemailer
+
 const transporter = nodemailer.createTransport({
-  service: 'gmail', // ou outro serviço de email
+  service: 'gmail', 
   auth: {
     user: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
     pass: process.env.EMAIL_PASS || 'ttimczqpomnivhda'
@@ -125,7 +125,7 @@ function AuthRouter() {
    * @swagger
    * /auth/login:
    *   post:
-   *     summary: Login user
+   *     summary: Login 
    *     tags: [Auth]
    *     requestBody:
    *       required: true
@@ -310,17 +310,17 @@ function AuthRouter() {
         return res.status(404).send({ auth: false, message: 'Email não encontrado' });
       }
 
-      // Gerar token de recuperação
+
       const resetToken = crypto.randomBytes(32).toString('hex');
       const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
-      const resetTokenExpiry = Date.now() + 3600000; // 1 hora
+      const resetTokenExpiry = Date.now() + 3600000; 
 
-      // Guardar token
+
       user.resetPasswordToken = resetTokenHash;
       user.resetPasswordExpiry = resetTokenExpiry;
       await user.save();
 
-      // URL de recuperação
+
       const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
 
       const mailOptions = {
@@ -342,7 +342,7 @@ function AuthRouter() {
 
       await transporter.sendMail(mailOptions);
 
-      // ✅ Só envia resposta uma vez, aqui
+
       res.status(200).send({
         auth: true,
         message: 'Email de recuperação enviado com sucesso! Verifica a tua caixa de correio.'
@@ -404,13 +404,13 @@ function AuthRouter() {
           .send({ auth: false, message: "Token inválido ou expirado" });
       }
 
-      // Check if new password is the same as the old one
+
       const isSamePassword = await bcrypt.compare(password, user.password);
       if (isSamePassword) {
         return res.status(400).send({ auth: false, message: "A nova password deve ser diferente da atual." });
       }
 
-      // 🔒 Cria hash da nova password
+
       const hashedPassword = await bcrypt.hash(password, config.saltRounds);
 
       user.password = hashedPassword;

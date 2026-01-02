@@ -20,9 +20,8 @@ function WorkoutsAPI(io) {
   const api = express.Router();
   api.use(validateToken);
 
-  // ===== WORKOUT PLANS =====
 
-  // Criar plano de treino para um cliente
+
   /**
    * @swagger
    * /workouts/plans:
@@ -69,7 +68,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Listar planos de treino do trainer
+
   /**
    * @swagger
    * /workouts/plans/trainer:
@@ -94,7 +93,6 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Obter plano de treino do cliente (quem chama é o cliente)
   /**
    * @swagger
    * /workouts/plans/my-plan:
@@ -115,7 +113,7 @@ function WorkoutsAPI(io) {
         return res.json({ plan: null });
       }
 
-      // Buscar todas as sessões deste plano
+
       const sessions = await WorkoutSession.find({ workoutPlan: plan._id });
 
       res.json({ plan, sessions });
@@ -125,7 +123,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Atualizar plano de treino (Genérico)
+
   /**
    * @swagger
    * /workouts/plans/{planId}:
@@ -180,7 +178,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Ativar/Finalizar plano de treino (disponibilizar ao cliente)
+
   /**
    * @swagger
    * /workouts/plans/{planId}/activate:
@@ -220,7 +218,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Desativar plano de treino
+
   /**
    * @swagger
    * /workouts/plans/{planId}/deactivate:
@@ -251,7 +249,6 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Obter histórico de planos de um cliente
   /**
    * @swagger
    * /workouts/plans/history/{clientId}:
@@ -273,9 +270,9 @@ function WorkoutsAPI(io) {
       const { clientId } = req.params;
       const plans = await WorkoutPlan.find({
         client: clientId,
-        active: false // Apenas planos inativos/passados
+        active: false 
       })
-        .sort({ createdAt: -1 }); // Mais recentes primeiro
+        .sort({ createdAt: -1 }); 
 
       res.json({ plans });
     } catch (error) {
@@ -284,7 +281,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Apagar plano de treino permanentemente
+
   /**
    * @swagger
    * /workouts/plans/{planId}:
@@ -305,10 +302,9 @@ function WorkoutsAPI(io) {
     try {
       const { planId } = req.params;
 
-      // 1. Apagar sessÃµes associadas
       await WorkoutSession.deleteMany({ workoutPlan: planId });
 
-      // 2. Apagar o plano
+    
       const plan = await WorkoutPlan.findByIdAndDelete(planId);
 
       if (!plan) return res.status(404).json({ error: 'Plane not found' });
@@ -320,9 +316,8 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // ===== WORKOUT SESSIONS =====
 
-  // Criar ou atualizar sessão de treino
+ 
   /**
    * @swagger
    * /workouts/sessions:
@@ -352,26 +347,25 @@ function WorkoutsAPI(io) {
     try {
       const { workoutPlanId, dayOfWeek, startTime, endTime, exercises } = req.body;
 
-      // Validar exercícios (máximo 10)
       if (exercises && exercises.length > 10) {
         return res.status(400).json({ error: 'Máximo de 10 exercícios por sessão' });
       }
 
-      // Verificar se já existe sessão para este dia
+
       let session = await WorkoutSession.findOne({
         workoutPlan: workoutPlanId,
         dayOfWeek
       });
 
       if (session) {
-        // Atualizar
+   
         session.startTime = startTime;
         session.endTime = endTime;
         session.exercises = exercises;
         session.updatedAt = Date.now();
         await session.save();
       } else {
-        // Criar nova
+       
         session = new WorkoutSession({
           workoutPlan: workoutPlanId,
           dayOfWeek,
@@ -389,7 +383,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Listar sessões de um plano
+
   /**
    * @swagger
    * /workouts/sessions/{planId}:
@@ -417,7 +411,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Deletar sessão
+
   /**
    * @swagger
    * /workouts/sessions/{sessionId}:
@@ -444,9 +438,9 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // ===== WORKOUT COMPLETIONS =====
+ 
 
-  // Registrar cumprimento de treino
+
   /**
    * @swagger
    * /workouts/completions:
@@ -475,7 +469,7 @@ function WorkoutsAPI(io) {
       const Users = require('../data/users/users');
       const clientId = req.userId;
       const { workoutSessionId, date, reason, notes } = req.body;
-      // Handle boolean conversion from FormData (multipart sends strings)
+   
       const completed = req.body.completed === 'true' || req.body.completed === true;
       let proofUrl = req.body.proof || '';
 
@@ -522,7 +516,7 @@ function WorkoutsAPI(io) {
         await completion.save();
       }
 
-      // Se o treino não foi completado, enviar notificação ao trainer
+  
       if (!completed) {
         console.log('Workout missed. Fetching session details for notification...');
         const session = await WorkoutSession.findById(workoutSessionId).populate('workoutPlan');
@@ -532,7 +526,7 @@ function WorkoutsAPI(io) {
 
           console.log(`Emitting workout-missed to trainer: ${trainerId}`);
 
-          // Emitir socket event
+      
           io.emit('workout-missed', {
             trainerId: trainerId.toString(),
             clientId: clientId.toString(),
@@ -553,7 +547,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Obter completions de um cliente
+
   /**
    * @swagger
    * /workouts/completions/client/{clientId}:
@@ -603,7 +597,7 @@ function WorkoutsAPI(io) {
     }
   });
 
-  // Estatísticas de treinos completados (para dashboard)
+
   /**
    * @swagger
    * /workouts/stats/client/{clientId}:
@@ -627,7 +621,7 @@ function WorkoutsAPI(io) {
    */
   api.get('/stats/client/:clientId', async (req, res) => {
     try {
-      const { period } = req.query; // 'week' ou 'month'
+      const { period } = req.query; 
       const clientId = req.params.clientId;
 
       const now = new Date();
@@ -648,7 +642,7 @@ function WorkoutsAPI(io) {
       const completed = completions.filter(c => c.completed).length;
       const missed = completions.filter(c => !c.completed).length;
 
-      // Agrupar por semana
+    
       const byWeek = {};
       completions.forEach(c => {
         const week = getWeekNumber(c.date);
@@ -705,7 +699,7 @@ function WorkoutsAPI(io) {
   return api;
 }
 
-// Helper para obter número da semana
+
 function getWeekNumber(date) {
   const d = new Date(date);
   d.setHours(0, 0, 0, 0);

@@ -60,15 +60,13 @@ const UsersRouter = (io) => {
 
       const filter = {};
       if (req.query.createdBy) filter.createdBy = req.query.createdBy;
-      // Handle role filtering logic if needed (e.g. searching for Users specifically)
-      // The original frontend logic filtered for "role.name === 'User' || scope.includes('user')"
-      // Implementing basic role.name filter support:
+
       if (req.query['role.name']) {
         filter['role.name'] = req.query['role.name'];
       } else {
-        // Exclude admins from the list
+  
         filter['role.scope'] = { $nin: ['admin'] };
-        filter['email'] = { $ne: 'admin@gym.com' }; // Explicit safety for the super admin
+        filter['email'] = { $ne: 'admin@gym.com' }; 
       }
 
       req.pagination = {
@@ -567,7 +565,7 @@ const UsersRouter = (io) => {
 
         let trainerId = user.trainer;
 
-        // Fallback para createdBy se não tiver trainer definido
+   
         if (!trainerId && user.createdBy) {
           const creator = await User.findById(user.createdBy);
           if (creator && (creator.role.name === 'Personal Trainer' || creator.role.name === 'Trainer')) {
@@ -663,15 +661,14 @@ const UsersRouter = (io) => {
         const user = await User.findById(request.user);
         if (user) {
           user.trainer = null;
-          // Se o utilizador foi criado por este PT, limpar o createdBy também
-          // para garantir que o PT deixa de aparecer no perfil
+        
           if (user.createdBy && user.createdBy.toString() === request.trainer.toString()) {
             user.createdBy = null;
           }
           await user.save();
         }
 
-        // Apagar planos de treino associados a este par user-trainer
+       
         await Workout.deleteMany({
           client: request.user,
           personalTrainer: request.trainer

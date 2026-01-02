@@ -7,7 +7,7 @@ import { Camera, CameraOff, RefreshCw } from "lucide-react";
 function QrcodeRead({ setDataLogin }) {
     const [status, setStatus] = useState("Aponte a câmara para o QR Code");
     const [facingMode, setFacingMode] = useState("environment");
-    const [statusType, setStatusType] = useState("normal"); // normal, success, error
+    const [statusType, setStatusType] = useState("normal"); 
 
     useEffect(() => {
     }, []);
