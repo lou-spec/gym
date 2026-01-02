@@ -81,6 +81,7 @@ const customFrontendUrl = process.env.FRONTEND_URL || "";
 const allowedOrigins = [
   customFrontendUrl || "https://gym-pwa-three.vercel.app",
   "http://localhost:5173",
+  "http://localhost:3000",
 ].filter(Boolean);
 
 const io = socketIo(server, {
@@ -104,12 +105,12 @@ const corsOptionsDelegate = function (req, callback) {
   const allow = !originHeader || isAllowedOrigin(originHeader);
   const options = allow
     ? {
-        origin: true, // reflect the request origin
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        optionsSuccessStatus: 200,
-      }
+      origin: true, // reflect the request origin
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      optionsSuccessStatus: 200,
+    }
     : { origin: false };
   callback(null, options);
 };

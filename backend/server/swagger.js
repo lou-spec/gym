@@ -10,9 +10,10 @@ const options = {
         },
         servers: [
             {
-                url: 'https://gym-pwa-three.vercel.app/api',
+                url: 'https://gym-5we7.onrender.com/api',
                 description: 'Production server',
             },
+
             {
                 url: 'http://localhost:3000/api',
                 description: 'Local server',
