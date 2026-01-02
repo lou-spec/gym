@@ -1,4 +1,3 @@
-import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import styles from "./styles.module.scss";
@@ -9,7 +8,6 @@ function QrcodeRead({ setDataLogin }) {
     const [facingMode, setFacingMode] = useState("environment");
 
     useEffect(() => {
-        console.log("QrcodeRead montado - scanner deveria iniciar");
     }, []);
 
     const toggleCamera = () => {
@@ -19,7 +17,6 @@ function QrcodeRead({ setDataLogin }) {
     const handleQRLogin = async (userId) => {
         try {
             setStatus("A fazer login...");
-            console.log("A tentar login com userId:", userId);
 
             const response = await fetch(buildApiUrl('/api/auth/login-qr'), {
                 method: 'POST',
@@ -30,21 +27,16 @@ function QrcodeRead({ setDataLogin }) {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log("Login OK:", data);
                 setStatus("Login com sucesso!");
                 setDataLogin({ success: true, userId });
                 window.dispatchEvent(new Event('auth-change'));
                 window.location.href = '/';
             } else {
                 const error = await response.json();
-                console.log("Login erro:", error);
                 setStatus("Erro: " + (error.message || "Login falhou"));
-                alert("Erro Backend: " + (error.message || "Login falhou"));
             }
         } catch (err) {
-            console.error("QR Login error:", err);
             setStatus("Erro de conexão");
-            alert("Erro de conexão: " + err.message);
         }
     };
 
@@ -52,23 +44,16 @@ function QrcodeRead({ setDataLogin }) {
         <div className={styles.qrCodeReader}>
             <Scanner
                 onScan={(results) => {
-                    console.log("onScan chamado:", results);
                     if (results && results.length > 0) {
                         const rawValue = results[0].rawValue;
-                        console.log("Valor lido:", rawValue);
 
                         if (rawValue && rawValue.startsWith("QRLOGIN:")) {
                             const userId = rawValue.replace("QRLOGIN:", "");
-                            console.log("UserId:", userId);
-                            alert("QR LIDO! userId: " + userId); // Debug ATIVO
                             handleQRLogin(userId);
-                        } else {
-                            alert("QR Inválido: " + rawValue);
                         }
                     }
                 }}
                 onError={(error) => {
-                    console.log("Scanner error:", error);
                 }}
                 constraints={{
                     facingMode: facingMode,

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Save, Edit, X, Camera, Trash2, Eye, EyeOff, Link, UserCheck, UserX, AlertCircle, Check } from "lucide-react";
 
 import { buildApiUrl } from "../../../../utils/api";
+import Qrcode from "../../../QrcodeCreate";
 
 export const Perfil = ({ user = { name: "" }, onUpdate }) => {
     const { register, handleSubmit, reset, formState: { isDirty } } = useForm({
@@ -819,6 +820,12 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                             )}
                         </div>
                     </div>
+                </div>
+
+
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '2rem 0' }}>
+                    <h3 style={{ color: '#dc2626', marginBottom: '1rem' }}>QR Code Login</h3>
+                    <Qrcode user={user} />
                 </div>
 
                 <div className={styles.trainerSection}>
