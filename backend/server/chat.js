@@ -2,22 +2,11 @@ const express = require('express');
 const { ChatMessage } = require('../data/chat');
 const validateToken = require('../middleware/token');
 const multer = require('multer');
-const path = require('path');
-
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, 'chat-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
+const cloudinary = require('../config/cloudinary');
 
 const upload = multer({
-  storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, 
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     if (file.mimetype.startsWith('image/')) {
       cb(null, true);
@@ -68,10 +57,21 @@ function ChatAPI(io) {
       let imageUrl = null;
 
       if (req.file) {
-        const protocol = req.protocol;
-        const host = req.get('host');
-        const baseUrl = process.env.BACKEND_URL || `${protocol}://${host}`;
-        imageUrl = `${baseUrl}/uploads/${req.file.filename}`;
+        const uploadResult = await new Promise((resolve, reject) => {
+          const uploadStream = cloudinary.uploader.upload_stream(
+            {
+              folder: 'chat_images',
+              resource_type: 'image',
+              transformation: [{ width: 1000, height: 1000, crop: 'limit', quality: 'auto' }]
+            },
+            (error, result) => {
+              if (error) reject(error);
+              else resolve(result);
+            }
+          );
+          uploadStream.end(req.file.buffer);
+        });
+        imageUrl = uploadResult.secure_url;
       }
 
       if (!message && !imageUrl) {
@@ -181,7 +181,7 @@ function ChatAPI(io) {
         .populate('receiver', 'name email role')
         .sort({ createdAt: -1 });
 
- 
+
       const contactsMap = new Map();
 
       messages.forEach(msg => {
@@ -203,7 +203,7 @@ function ChatAPI(io) {
         }
       });
 
-  
+
       for (const [contactId, contact] of contactsMap) {
         const unreadCount = await ChatMessage.countDocuments({
           sender: contactId,
@@ -222,11 +222,11 @@ function ChatAPI(io) {
       try {
         const User = require('../data/users/users');
 
-  
+
         const currentUser = await User.findById(userId);
 
         if (currentUser) {
-     
+
           if (currentUser.role.name === 'Trainer' || currentUser.role.scope.includes('trainer')) {
             console.log('Chat debug - fetching clients for trainer:', userId);
             const myClients = await User.find({ createdBy: userId });
@@ -247,7 +247,7 @@ function ChatAPI(io) {
               }
             });
           }
-      
+
           else if (currentUser.createdBy) {
             console.log('Chat debug - fetching trainer for client:', userId);
             const myTrainer = await User.findById(currentUser.createdBy);

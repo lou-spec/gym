@@ -6,7 +6,7 @@ export const usePostData = (url = "") => {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState({});
 
-  // 🔹 Função adicional no mesmo estilo da imagem
+ 
   const addData = (data) => {
     setLoading(true);
     fetch(buildApiUrl(`/api/${url}`), {
@@ -31,7 +31,7 @@ export const usePostData = (url = "") => {
       .finally(() => setLoading(false));
   };
 
-  // 🔹 Função original, com suporte a FormData e fetch async
+
   const postData = async (payload) => {
     setLoading(true);
     setError(false);
@@ -67,6 +67,6 @@ export const usePostData = (url = "") => {
     isError,
     isLoading,
     postData,
-    addData, // 🔹 exportamos também a nova função
+    addData, 
   };
 };

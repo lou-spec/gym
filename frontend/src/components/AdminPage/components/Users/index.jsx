@@ -13,7 +13,6 @@ import { socketAddListener, socketRemoveListener, initSocket } from "../../../..
 const Users = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
 
-  // State for Pagination and Sorting
   const [page, setPage] = useState(0);
   const [limit, setLimit] = useState(5);
   const [sortBy, setSortBy] = useState("");
@@ -31,7 +30,7 @@ const Users = () => {
     }
   }, [data, setUsers]);
 
-  // Socket.IO Listener for Real-time Updates
+
   useEffect(() => {
     initSocket();
 

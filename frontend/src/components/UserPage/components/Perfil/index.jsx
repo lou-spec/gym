@@ -43,7 +43,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
     const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
 
     const loadTrainerInfo = async () => {
-        // Tenta usar user.trainer, se não existir usa user.createdBy como fallback
+        
         const trainerId = user?.trainer || user?.createdBy;
 
         if (trainerId) {
@@ -53,7 +53,7 @@ export const Perfil = ({ user = { name: "" }, onUpdate }) => {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    // Verificar se é PT de forma mais permissiva
+               
                     const roleName = data.role?.name?.toLowerCase() || '';
                     const scopes = Array.isArray(data.role?.scope) ? data.role.scope : [data.role?.scope];
                     const isTrainer = roleName.includes('trainer') || roleName.includes('pt') ||

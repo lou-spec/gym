@@ -27,7 +27,7 @@ export const useGetData = (url = "", pageSize = 10, current = 1, sort = "", orde
     if (sort) queryParams.append('sortBy', sort);
     if (order) queryParams.append('sortOrder', order);
 
-    // Append filters
+
     if (filters) {
       Object.entries(filters).forEach(([key, value]) => {
         if (value) queryParams.append(key, value);
