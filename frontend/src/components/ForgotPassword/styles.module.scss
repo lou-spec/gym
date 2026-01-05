@@ -1,0 +1,26 @@
+.resetLinkBox {
+    background: var(--reset-box-bg);
+    color: var(--reset-box-text);
+    border: 1px solid var(--reset-box-border);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+
+    p {
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    a {
+        color: var(--reset-box-border);
+        word-break: break-all;
+        text-decoration: underline;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}

@@ -286,7 +286,7 @@ function AuthRouter() {
    * @swagger
    * /auth/forgot-password:
    *   post:
-   *     summary: Request password reset email
+   *     summary: Request password reset link (mock mode - returns link directly)
    *     tags: [Auth]
    *     requestBody:
    *       required: true
@@ -294,14 +294,36 @@ function AuthRouter() {
    *         application/json:
    *           schema:
    *             type: object
+   *             required:
+   *               - email
    *             properties:
    *               email:
    *                 type: string
+   *                 format: email
+   *                 example: user@example.com
    *     responses:
    *       200:
-   *         description: Email sent
+   *         description: Reset link generated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 auth:
+   *                   type: boolean
+   *                   example: true
+   *                 message:
+   *                   type: string
+   *                   example: Link de recuperação gerado com sucesso!
+   *                 resetUrl:
+   *                   type: string
+   *                   example: https://gym-pwa-three.vercel.app/reset-password/abc123...
+   *       400:
+   *         description: Email is required
    *       404:
-   *         description: Email not found
+   *         description: Email not found in database
+   *       500:
+   *         description: Server error generating reset link
    */
   router.route("/forgot-password").post(async function (req, res) {
     const { email } = req.body;

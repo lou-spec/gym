@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { buildApiUrl } from "../../utils/api";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import styles from "../LoginPage/styles.module.scss";
+import loginStyles from "../LoginPage/styles.module.scss";
+import styles from "./styles.module.scss";
 import { useRedirectIfAuthenticated } from "../../hooks/useRedirectIfAuthenticated";
 
 
@@ -80,14 +81,14 @@ const ForgotPassword = () => {
   };
 
   return (
-    <Container className={styles.homePage}>
-      <Row className={`${styles.row} align-items-center`}>
-        <Col md={7} lg={8} className={styles.leftCol}>
-          <div className={styles.loginForm}>
-            <h2 className={styles.form__title}>Recuperar Password</h2>
-            <form className={styles.form} onSubmit={handleSubmit}>
+    <Container className={loginStyles.homePage}>
+      <Row className={`${loginStyles.row} align-items-center`}>
+        <Col md={7} lg={8} className={loginStyles.leftCol}>
+          <div className={loginStyles.loginForm}>
+            <h2 className={loginStyles.form__title}>Recuperar Password</h2>
+            <form className={loginStyles.form} onSubmit={handleSubmit}>
               <div>
-                <label className={styles['form-control__label']} htmlFor="email">
+                <label className={loginStyles['form-control__label']} htmlFor="email">
                   Email:
                 </label>
                 <input
@@ -97,57 +98,40 @@ const ForgotPassword = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className={styles['form-control']}
+                  className={loginStyles['form-control']}
                   placeholder="Introduz o teu email"
                 />
               </div>
 
-              {error && <p className={styles.error_message}>{error}</p>}
+              {error && <p className={loginStyles.error_message}>{error}</p>}
               {message && <p style={{ color: "#dc2626", textAlign: "center", marginBottom: "16px" }}>{message}</p>}
               {resetUrl && (
-                <div style={{
-                  background: "#1a1a2e",
-                  padding: "15px",
-                  borderRadius: "8px",
-                  marginBottom: "16px",
-                  border: "1px solid #dc2626"
-                }}>
-                  <p style={{ color: "#fff", marginBottom: "8px", fontSize: "14px" }}>
-                    Link de recuperação (modo teste):
-                  </p>
-                  <a
-                    href={resetUrl}
-                    style={{
-                      color: "#dc2626",
-                      wordBreak: "break-all",
-                      textDecoration: "underline"
-                    }}
-                  >
-                    {resetUrl}
-                  </a>
+                <div className={styles.resetLinkBox}>
+                  <p>Link de recuperação (modo teste):</p>
+                  <a href={resetUrl}>{resetUrl}</a>
                 </div>
               )}
 
-              <button type="submit" className={styles['form__submit']} disabled={loading}>
+              <button type="submit" className={loginStyles['form__submit']} disabled={loading}>
                 {loading ? "Enviando..." : "Enviar Email de Recuperação"}
               </button>
 
-              <div className={styles.forgotPasswordLink}>
+              <div className={loginStyles.forgotPasswordLink}>
                 <a href="/login">Voltar ao Login</a>
               </div>
             </form>
           </div>
         </Col>
 
-        <Col md={5} lg={4} className={styles.rightCol}>
-          <div className={styles.form__animation}>
-            <div id="ball" className={styles.ball}>
-              <div className={styles.ball__eyes}>
-                <div className={styles.eye_wrap}><span className={styles.eye}></span></div>
-                <div className={styles.eye_wrap}><span className={styles.eye}></span></div>
+        <Col md={5} lg={4} className={loginStyles.rightCol}>
+          <div className={loginStyles.form__animation}>
+            <div id="ball" className={loginStyles.ball}>
+              <div className={loginStyles.ball__eyes}>
+                <div className={loginStyles.eye_wrap}><span className={loginStyles.eye}></span></div>
+                <div className={loginStyles.eye_wrap}><span className={loginStyles.eye}></span></div>
               </div>
-              <div className={styles.ball__mouth}></div>
-              <div className={styles.ball__shadow}></div>
+              <div className={loginStyles.ball__mouth}></div>
+              <div className={loginStyles.ball__shadow}></div>
             </div>
           </div>
         </Col>

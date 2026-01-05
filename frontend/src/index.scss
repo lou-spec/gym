@@ -43,6 +43,10 @@
 
   --landing-pagination: rgba(0, 0, 0, 0.3);
   --landing-pagination-active: #000000;
+
+  --reset-box-bg: #f3f4f6;
+  --reset-box-text: #1f2937;
+  --reset-box-border: #dc2626;
 }
 
 .dark-mode {
@@ -78,6 +82,10 @@
 
   --landing-pagination: rgba(255, 255, 255, 0.3);
   --landing-pagination-active: #ffffff;
+
+  --reset-box-bg: #1a1a1a;
+  --reset-box-text: #e5e7eb;
+  --reset-box-border: #dc2626;
 }
 
 html,
