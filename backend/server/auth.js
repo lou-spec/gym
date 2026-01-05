@@ -10,7 +10,7 @@ const config = require("../config");
 
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
     pass: process.env.EMAIL_PASS || 'nrxwyjlejkeexxcv'
@@ -300,32 +300,40 @@ function AuthRouter() {
   router.route("/forgot-password").post(async function (req, res) {
     const { email } = req.body;
 
+    console.log("=== FORGOT PASSWORD BACKEND DEBUG ===");
+    console.log("Email recebido:", email);
+    console.log("EMAIL_USER env:", process.env.EMAIL_USER ? "SET" : "NOT SET");
+    console.log("EMAIL_PASS env:", process.env.EMAIL_PASS ? "SET" : "NOT SET");
+    console.log("FRONTEND_URL env:", process.env.FRONTEND_URL || "NOT SET (usando localhost)");
+
     if (!email) {
+      console.log("❌ Email não fornecido");
       return res.status(400).send({ auth: false, message: 'Email é obrigatório' });
     }
 
     try {
+      console.log("A procurar utilizador na BD...");
       const user = await Users.findUserByEmail(email);
       if (!user) {
+        console.log("❌ Utilizador não encontrado");
         return res.status(404).send({ auth: false, message: 'Email não encontrado' });
       }
-
+      console.log("✅ Utilizador encontrado:", user.name);
 
       const resetToken = crypto.randomBytes(32).toString('hex');
       const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
-      const resetTokenExpiry = Date.now() + 3600000; 
-
+      const resetTokenExpiry = Date.now() + 3600000;
 
       user.resetPasswordToken = resetTokenHash;
       user.resetPasswordExpiry = resetTokenExpiry;
       await user.save();
-
+      console.log("✅ Token guardado na BD");
 
       const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
+      console.log("URL de reset:", resetUrl);
 
       const mailOptions = {
         from: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
-
         to: email,
         subject: 'Recuperação de Password - Gym',
         html: `
@@ -340,8 +348,12 @@ function AuthRouter() {
       `
       };
 
-      await transporter.sendMail(mailOptions);
+      console.log("A enviar email...");
+      console.log("De:", mailOptions.from);
+      console.log("Para:", mailOptions.to);
 
+      await transporter.sendMail(mailOptions);
+      console.log("✅ Email enviado com sucesso!");
 
       res.status(200).send({
         auth: true,
@@ -349,7 +361,13 @@ function AuthRouter() {
       });
 
     } catch (err) {
-      console.error(err);
+      console.error("❌ ERRO DETALHADO:");
+      console.error("Tipo:", err.name);
+      console.error("Mensagem:", err.message);
+      console.error("Stack:", err.stack);
+      console.error("Código:", err.code);
+      console.log("=== FIM DEBUG BACKEND ===");
+
       res.status(500).send({
         auth: false,
         message: 'Erro ao enviar email de recuperação'
