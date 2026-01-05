@@ -28,33 +28,50 @@ const ForgotPassword = () => {
     setError("");
     setMessage("");
 
+    console.log("=== FORGOT PASSWORD DEBUG ===");
+    console.log("Email a enviar:", email);
+
     if (!validateEmail(email)) {
       setError("Por favor, introduz um email válido.");
       setLoading(false);
       return;
     }
 
+    const apiUrl = buildApiUrl("/api/auth/forgot-password");
+    console.log("URL do endpoint:", apiUrl);
+
     try {
-      const response = await fetch(buildApiUrl("/api/auth/forgot-password"), {
+      console.log("A fazer pedido ao backend...");
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ email }),
       });
 
+      console.log("Status da resposta:", response.status);
+      console.log("Response OK?:", response.ok);
+
       const data = await response.json();
+      console.log("Dados recebidos:", data);
 
       if (response.ok) {
+        console.log("✅ Sucesso! Email enviado");
         setMessage("Email de recuperação enviado com sucesso! Verifica o teu email.");
         setTimeout(() => navigate("/login"), 3000);
       } else {
+        console.log("❌ Erro do servidor:", data.message);
         setError(data.message || "Erro ao enviar email de recuperação");
       }
     } catch (err) {
+      console.log("❌ Erro de conexão:", err);
+      console.log("Tipo de erro:", err.name);
+      console.log("Mensagem:", err.message);
       setError("Erro de conexão. Tenta novamente.");
       console.error(err);
     } finally {
       setLoading(false);
+      console.log("=== FIM DEBUG ===");
     }
   };
 
