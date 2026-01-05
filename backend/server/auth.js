@@ -10,10 +10,15 @@ const config = require("../config");
 
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
     pass: process.env.EMAIL_PASS || 'nrxwyjlejkeexxcv'
+  },
+  tls: {
+    rejectUnauthorized: true
   }
 });
 
