@@ -9,10 +9,11 @@ const bcrypt = require('bcrypt');
 const config = require("../config");
 
 
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
     pass: process.env.EMAIL_PASS || 'nrxwyjlejkeexxcv'
@@ -337,32 +338,12 @@ function AuthRouter() {
       const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
       console.log("URL de reset:", resetUrl);
 
-      const mailOptions = {
-        from: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
-        to: email,
-        subject: 'Recuperação de Password - Gym',
-        html: `
-        <h2>Recuperação de Password</h2>
-        <p>Recebeste este email porque pediste para recuperar a tua password.</p>
-        <p>Clica no link abaixo para redefinir a tua password:</p>
-        <a href="${resetUrl}" style="background-color: #0d0c22; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-          Redefinir Password
-        </a>
-        <p>Se não pediste isto, ignora este email.</p>
-        <p><strong>Nota:</strong> Este link expira em 1 hora.</p>
-      `
-      };
-
-      console.log("A enviar email...");
-      console.log("De:", mailOptions.from);
-      console.log("Para:", mailOptions.to);
-
-      await transporter.sendMail(mailOptions);
-      console.log("✅ Email enviado com sucesso!");
+      console.log("⚠️ MOCK MODE: Email não enviado, retornando link diretamente");
 
       res.status(200).send({
         auth: true,
-        message: 'Email de recuperação enviado com sucesso! Verifica a tua caixa de correio.'
+        message: 'Link de recuperação gerado com sucesso!',
+        resetUrl: resetUrl
       });
 
     } catch (err) {
@@ -375,7 +356,7 @@ function AuthRouter() {
 
       res.status(500).send({
         auth: false,
-        message: 'Erro ao enviar email de recuperação'
+        message: 'Erro ao gerar link de recuperação'
       });
     }
   });

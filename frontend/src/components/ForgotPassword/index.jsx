@@ -12,6 +12,7 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetUrl, setResetUrl] = useState("");
   const navigate = useNavigate();
 
   if (isFetching) {
@@ -27,6 +28,7 @@ const ForgotPassword = () => {
     setLoading(true);
     setError("");
     setMessage("");
+    setResetUrl("");
 
     console.log("=== FORGOT PASSWORD DEBUG ===");
     console.log("Email a enviar:", email);
@@ -56,12 +58,14 @@ const ForgotPassword = () => {
       console.log("Dados recebidos:", data);
 
       if (response.ok) {
-        console.log("✅ Sucesso! Email enviado");
-        setMessage("Email de recuperação enviado com sucesso! Verifica o teu email.");
-        setTimeout(() => navigate("/login"), 3000);
+        console.log("✅ Sucesso! Link gerado");
+        setMessage(data.message || "Link de recuperação gerado com sucesso!");
+        if (data.resetUrl) {
+          setResetUrl(data.resetUrl);
+        }
       } else {
         console.log("❌ Erro do servidor:", data.message);
-        setError(data.message || "Erro ao enviar email de recuperação");
+        setError(data.message || "Erro ao gerar link de recuperação");
       }
     } catch (err) {
       console.log("❌ Erro de conexão:", err);
@@ -100,6 +104,29 @@ const ForgotPassword = () => {
 
               {error && <p className={styles.error_message}>{error}</p>}
               {message && <p style={{ color: "#dc2626", textAlign: "center", marginBottom: "16px" }}>{message}</p>}
+              {resetUrl && (
+                <div style={{
+                  background: "#1a1a2e",
+                  padding: "15px",
+                  borderRadius: "8px",
+                  marginBottom: "16px",
+                  border: "1px solid #dc2626"
+                }}>
+                  <p style={{ color: "#fff", marginBottom: "8px", fontSize: "14px" }}>
+                    Link de recuperação (modo teste):
+                  </p>
+                  <a
+                    href={resetUrl}
+                    style={{
+                      color: "#dc2626",
+                      wordBreak: "break-all",
+                      textDecoration: "underline"
+                    }}
+                  >
+                    {resetUrl}
+                  </a>
+                </div>
+              )}
 
               <button type="submit" className={styles['form__submit']} disabled={loading}>
                 {loading ? "Enviando..." : "Enviar Email de Recuperação"}
