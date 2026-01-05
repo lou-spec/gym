@@ -10,10 +10,10 @@ const config = require("../config");
 
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail', 
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
-    pass: process.env.EMAIL_PASS || 'ttimczqpomnivhda'
+    pass: process.env.EMAIL_PASS || 'nrxwyjlejkeexxcv'
   }
 });
 
@@ -297,65 +297,7 @@ function AuthRouter() {
    *       404:
    *         description: Email not found
    */
-  router.route("/forgot-password").post(async function (req, res) {
-    const { email } = req.body;
 
-    if (!email) {
-      return res.status(400).send({ auth: false, message: 'Email é obrigatório' });
-    }
-
-    try {
-      const user = await Users.findUserByEmail(email);
-      if (!user) {
-        return res.status(404).send({ auth: false, message: 'Email não encontrado' });
-      }
-
-
-      const resetToken = crypto.randomBytes(32).toString('hex');
-      const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
-      const resetTokenExpiry = Date.now() + 3600000; 
-
-
-      user.resetPasswordToken = resetTokenHash;
-      user.resetPasswordExpiry = resetTokenExpiry;
-      await user.save();
-
-
-      const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
-
-      const mailOptions = {
-        from: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
-
-        to: email,
-        subject: 'Recuperação de Password - Gym',
-        html: `
-        <h2>Recuperação de Password</h2>
-        <p>Recebeste este email porque pediste para recuperar a tua password.</p>
-        <p>Clica no link abaixo para redefinir a tua password:</p>
-        <a href="${resetUrl}" style="background-color: #0d0c22; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
-          Redefinir Password
-        </a>
-        <p>Se não pediste isto, ignora este email.</p>
-        <p><strong>Nota:</strong> Este link expira em 1 hora.</p>
-      `
-      };
-
-      await transporter.sendMail(mailOptions);
-
-
-      res.status(200).send({
-        auth: true,
-        message: 'Email de recuperação enviado com sucesso! Verifica a tua caixa de correio.'
-      });
-
-    } catch (err) {
-      console.error(err);
-      res.status(500).send({
-        auth: false,
-        message: 'Erro ao enviar email de recuperação'
-      });
-    }
-  });
 
   /**
    * @swagger
@@ -463,4 +405,62 @@ function AuthRouter() {
   return router;
 }
 
-module.exports = AuthRouter;
+module.exports = AuthRouter; router.route("/forgot-password").post(async function (req, res) {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).send({ auth: false, message: 'Email é obrigatório' });
+  }
+
+  try {
+    const user = await Users.findUserByEmail(email);
+    if (!user) {
+      return res.status(404).send({ auth: false, message: 'Email não encontrado' });
+    }
+
+
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenHash = crypto.createHash('sha256').update(resetToken).digest('hex');
+    const resetTokenExpiry = Date.now() + 3600000;
+
+
+    user.resetPasswordToken = resetTokenHash;
+    user.resetPasswordExpiry = resetTokenExpiry;
+    await user.save();
+
+
+    const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER || 'lentonobrega2016@gmail.com',
+
+      to: email,
+      subject: 'Recuperação de Password - Gym',
+      html: `
+        <h2>Recuperação de Password</h2>
+        <p>Recebeste este email porque pediste para recuperar a tua password.</p>
+        <p>Clica no link abaixo para redefinir a tua password:</p>
+        <a href="${resetUrl}" style="background-color: #0d0c22; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">
+          Redefinir Password
+        </a>
+        <p>Se não pediste isto, ignora este email.</p>
+        <p><strong>Nota:</strong> Este link expira em 1 hora.</p>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+
+
+    res.status(200).send({
+      auth: true,
+      message: 'Email de recuperação enviado com sucesso! Verifica a tua caixa de correio.'
+    });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      auth: false,
+      message: 'Erro ao enviar email de recuperação'
+    });
+  }
+});
