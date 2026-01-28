@@ -446,7 +446,7 @@ Website: [gym-pwa-three.vercel.app](https://gym-pwa-three.vercel.app/)
 
 ## Licença
 
-Este projeto está licenciado sob a Licença ISC.
+Este projeto está licenciado sob a Licença MIT.
 
 ## Autores
 
